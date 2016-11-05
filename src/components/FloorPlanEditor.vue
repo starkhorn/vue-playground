@@ -1,17 +1,17 @@
 <template>
 <div>
   <div class="toolbar">
-    <button type="button" @click="toggleCreateDeskCommand">New Desk</button>
+    <button type="button" @click="toggleCreateDeskActopm">New Desk</button>
   </div>
 
-  <floor-canvas :width="1024" :height="768" :image="floor.image" :command="activeCommand" :objects="floor.desks">
+  <floor-canvas :width="1024" :height="768" :image="floor.image" :action="activeAction" :objects="floor.desks">
   </floor-canvas>
 </div>
 </template>
 
 <script>
 import FloorCanvas from './FloorCanvas'
-import { CREATE_DESK } from './canvas-commands'
+import { CREATE_DESK } from './canvas-actions'
 
 export default {
   components: {
@@ -21,12 +21,12 @@ export default {
   props: ['floor'],
 
   data: () => ({
-    activeCommand: null
+    activeAction: null
   }),
 
   methods: {
-    toggleCreateDeskCommand: function() {
-      this.activeCommand = CREATE_DESK
+    toggleCreateDeskActopm: function() {
+      this.activeAction = CREATE_DESK
     }
   }
 }

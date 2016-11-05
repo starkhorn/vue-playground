@@ -1,4 +1,4 @@
-export default class CanvasCommand {
+export default class CanvasAction {
   init({ canvas }) {}
 
   mousedown({ e, canvas }) {}

@@ -6,7 +6,7 @@
 
 <script>
 import { fabric } from 'fabric'
-import { ACTIONS, NOOP } from './canvas-commands'
+import { ACTIONS, NOOP } from './canvas-actions'
 
 export default {
   props: {
@@ -18,7 +18,7 @@ export default {
       default: []
     },
 
-    command: String
+    action: String
   },
 
   mounted: function() {
@@ -43,25 +43,25 @@ export default {
     },
 
     setupCommandHandler: function() {
-      this.$watch('command', function(command) {
-        this.getCommand().init({ canvas: this.canvas })
+      this.$watch('action', function(command) {
+        this.getAction().init({ canvas: this.canvas })
       })
 
       this.canvas.on('mouse:down', (e) => {
-        this.getCommand().mousedown({ canvas: this.canvas, ...e })
+        this.getAction().mousedown({ canvas: this.canvas, ...e })
       })
 
       this.canvas.on('mouse:up', (e) => {
-        this.getCommand().mouseup({ canvas: this.canvas, ...e })
+        this.getAction().mouseup({ canvas: this.canvas, ...e })
       })
 
       this.canvas.on('mouse:move', (e) => {
-        this.getCommand().mousemove({ canvas: this.canvas, ...e })
+        this.getAction().mousemove({ canvas: this.canvas, ...e })
       })
     },
 
-    getCommand: function() {
-      return ACTIONS[this.command] || ACTIONS[NOOP]
+    getAction: function() {
+      return ACTIONS[this.action] || ACTIONS[NOOP]
     },
 
     populateObjects: function() {

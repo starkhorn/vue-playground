@@ -1,7 +1,7 @@
 import { fabric } from 'fabric'
-import CanvasCommand from './CanvasCommand'
+import CanvasAction from './CanvasAction'
 
-export default class CreateDeskCommand extends CanvasCommand {
+export default class CreateDeskAction extends CanvasAction {
   init({ canvas }) {
     canvas.selection = false
 
