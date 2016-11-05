@@ -1,11 +1,20 @@
 <template>
 <div>
-  <div class="toolbar">
-    <button type="button" @click="toggleCreateDeskActopm">New Desk</button>
+  <div class="columns">
+    <div class="column">
+      <aside class="menu">
+        <p class="menu-label">Tools</p>
+        <ul class="menu-list">
+          <li>
+            <a href="#" @click="toggleAction(CREATE_DESK)" :class="activeAction === CREATE_DESK ? 'is-active' : ''">New Desk</a>
+          </li>
+        </ul>
+      </aside>
+    </div>
+    <div class="column">
+      <floor-canvas :width="1024" :height="768" :image="floor.image" :action="activeAction" :objects="floor.desks" />
+    </div>
   </div>
-
-  <floor-canvas :width="1024" :height="768" :image="floor.image" :action="activeAction" :objects="floor.desks">
-  </floor-canvas>
 </div>
 </template>
 
@@ -21,12 +30,17 @@ export default {
   props: ['floor'],
 
   data: () => ({
-    activeAction: null
+    activeAction: null,
+    CREATE_DESK
   }),
 
   methods: {
-    toggleCreateDeskActopm: function() {
-      this.activeAction = CREATE_DESK
+    toggleAction: function(action) {
+      if (this.activeAction !== action) {
+        this.activeAction = action
+      } else {
+        this.activeAction = null
+      }
     }
   }
 }

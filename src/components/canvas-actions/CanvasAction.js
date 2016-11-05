@@ -1,5 +1,7 @@
 export default class CanvasAction {
-  init({ canvas }) {}
+  activate({ canvas }) {}
+
+  deactivate({ canvas }) {}
 
   mousedown({ e, canvas }) {}
 

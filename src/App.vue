@@ -1,6 +1,20 @@
 <template>
 <div id="app">
-  <floor-plan-editor :floor="floor"></floor-plan-editor>
+  <nav class="nav has-shadow">
+    <div class="container">
+      <div class="nav-left">
+        <a class="nav-item is-brand" href="#">
+          <h3 class="title is-3">Floor Plan Visualizer</h3>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="section">
+    <div class="container">
+      <floor-plan-editor :floor="floor"></floor-plan-editor>
+    </div>
+  </div>
 </div>
 </template>
 
@@ -26,6 +40,6 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss">
+@import 'node_modules/bulma/bulma';
 </style>

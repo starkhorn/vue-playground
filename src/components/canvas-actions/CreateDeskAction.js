@@ -2,7 +2,7 @@ import { fabric } from 'fabric'
 import CanvasAction from './CanvasAction'
 
 export default class CreateDeskAction extends CanvasAction {
-  init({ canvas }) {
+  activate({ canvas }) {
     canvas.selection = false
 
     this.creatingRect = new fabric.Rect({
@@ -10,6 +10,10 @@ export default class CreateDeskAction extends CanvasAction {
       opacity: 0.2,
       visible: false
     })
+  }
+
+  deactivate({ canvas }) {
+    canvas.selection = true
   }
 
   mousedown({ e, canvas }) {
@@ -26,8 +30,8 @@ export default class CreateDeskAction extends CanvasAction {
     canvas.add(this.creatingRect)
   }
 
-  mouseup({ e, canvas }) {
-    this.init({ canvas: canvas })
+  mouseup(options) {
+    this.activate(options)
   }
 
   mousemove({ e, canvas }) {

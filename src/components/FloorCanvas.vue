@@ -40,11 +40,15 @@ export default {
 
         this.canvas.setBackgroundImage(image, this.canvas.renderAll.bind(this.canvas))
       })
+
+      this.getAction().activate({ canvas: this.canvas })
     },
 
     setupCommandHandler: function() {
-      this.$watch('action', function(command) {
-        this.getAction().init({ canvas: this.canvas })
+      this.$watch('action', function(newAction, oldAction) {
+        this.getAction(oldAction).deactivate({ canvas: this.canvas })
+
+        this.getAction().activate({ canvas: this.canvas })
       })
 
       this.canvas.on('mouse:down', (e) => {
@@ -60,8 +64,8 @@ export default {
       })
     },
 
-    getAction: function() {
-      return ACTIONS[this.action] || ACTIONS[NOOP]
+    getAction: function(action) {
+      return ACTIONS[action || this.action] || ACTIONS[NOOP]
     },
 
     populateObjects: function() {
