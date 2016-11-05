@@ -1,11 +1,19 @@
+import _ from 'lodash'
+
 export default class CanvasAction {
-  activate({ canvas }) {}
+  constructor(canvas) {
+    this.canvas = canvas
+  }
 
-  deactivate({ canvas }) {}
+  activate() {
+    _.each(this.events || {}, (handler, event) => {
+      this.canvas.on(event, handler)
+    })
+  }
 
-  mousedown({ e, canvas }) {}
-
-  mouseup({ e, canvas }) {}
-
-  mousemove({ e, canvas }) {}
+  deactivate() {
+    _.each(this.events || {}, (handler, event) => {
+      this.canvas.off(event, handler)
+    })
+  }
 }

@@ -2,44 +2,55 @@ import { fabric } from 'fabric'
 import CanvasAction from './CanvasAction'
 
 export default class CreateDeskAction extends CanvasAction {
-  activate({ canvas }) {
-    canvas.selection = false
 
-    this.creatingRect = new fabric.Rect({
-      fill: 'green',
-      opacity: 0.2,
-      visible: false
-    })
+  constructor() {
+    super(...arguments)
+
+    this.events = {
+      'mouse:down': this.mousedown.bind(this),
+      'mouse:up': this.mouseup.bind(this),
+      'mouse:move': this.mousemove.bind(this)
+    }
   }
 
-  deactivate({ canvas }) {
-    canvas.selection = true
+  activate() {
+    super.activate(...arguments)
+
+    this.canvas.selection = false
   }
 
-  mousedown({ e, canvas }) {
-    const existingObject = canvas.findTarget(e)
+  deactivate() {
+    super.deactivate(...arguments)
+
+    this.canvas.selection = true
+  }
+
+  mousedown({ e }) {
+    const existingObject = this.canvas.findTarget(e)
     if (existingObject) {
       return
     }
 
-    this.origin = canvas.getPointer(e)
-    this.creatingRect.set({
+    this.origin = this.canvas.getPointer(e)
+    this.creatingRect = new fabric.Rect({
+      fill: 'green',
+      opacity: 0.2,
       visible: true
     })
 
-    canvas.add(this.creatingRect)
+    this.canvas.add(this.creatingRect)
   }
 
   mouseup(options) {
-    this.activate(options)
+    this.creatingRect = null
   }
 
-  mousemove({ e, canvas }) {
-    if (!this.creatingRect.visible) {
+  mousemove({ e }) {
+    if (!this.creatingRect) {
       return
     }
 
-    const pointer = canvas.getPointer(e)
+    const pointer = this.canvas.getPointer(e)
     const dx = pointer.x - this.origin.x
     const dy = pointer.y - this.origin.y
 
@@ -51,6 +62,6 @@ export default class CreateDeskAction extends CanvasAction {
     })
 
     this.creatingRect.setCoords()
-    canvas.renderAll()
+    this.canvas.renderAll()
   }
 }

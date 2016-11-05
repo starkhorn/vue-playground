@@ -6,7 +6,7 @@
 
 <script>
 import { fabric } from 'fabric'
-import { ACTIONS, NOOP } from './canvas-actions'
+import { actionInitializer, NOOP } from './canvas-actions'
 
 export default {
   props: {
@@ -24,7 +24,7 @@ export default {
   mounted: function() {
     this.$nextTick(() => {
       this.createCanvas()
-      this.setupCommandHandler()
+      this.setupActionHandlers()
       this.populateObjects()
     })
   },
@@ -40,32 +40,22 @@ export default {
 
         this.canvas.setBackgroundImage(image, this.canvas.renderAll.bind(this.canvas))
       })
-
-      this.getAction().activate({ canvas: this.canvas })
     },
 
-    setupCommandHandler: function() {
+    setupActionHandlers: function() {
+      this.getAction().activate()
+
       this.$watch('action', function(newAction, oldAction) {
-        this.getAction(oldAction).deactivate({ canvas: this.canvas })
-
-        this.getAction().activate({ canvas: this.canvas })
-      })
-
-      this.canvas.on('mouse:down', (e) => {
-        this.getAction().mousedown({ canvas: this.canvas, ...e })
-      })
-
-      this.canvas.on('mouse:up', (e) => {
-        this.getAction().mouseup({ canvas: this.canvas, ...e })
-      })
-
-      this.canvas.on('mouse:move', (e) => {
-        this.getAction().mousemove({ canvas: this.canvas, ...e })
+        this.getAction(oldAction).deactivate()
+        this.getAction().activate()
       })
     },
 
     getAction: function(action) {
-      return ACTIONS[action || this.action] || ACTIONS[NOOP]
+      const actions = this.actions = this.actions || actionInitializer(this.canvas)
+      const currentAction = this.action
+
+      return actions[action || currentAction] || actions[NOOP]
     },
 
     populateObjects: function() {
