@@ -12,6 +12,10 @@ export default {
     width: Number,
     height: Number,
     image: String,
+    objects: {
+      type: Array,
+      default: []
+    },
 
     command: Object
   },
@@ -20,6 +24,7 @@ export default {
     this.$nextTick(() => {
       this.createCanvas()
       this.setupCommandHandler()
+      this.populateRects()
     })
   },
 
@@ -60,6 +65,19 @@ export default {
         if (this.command) {
           this.command.mousemove({ canvas: this.canvas, ...e })
         }
+      })
+    },
+
+    populateRects: function() {
+      this.objects.forEach((rect) => {
+        this.canvas.add(new fabric.Rect({
+          fill: 'green',
+          opacity: 0.2,
+          left: rect.x,
+          top: rect.y,
+          width: rect.width,
+          height: rect.height
+        }))
       })
     }
   }
