@@ -13,6 +13,7 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
+    "fabric": "^1.6.6",
     "vue": "^2.0.1"
   },
   "devDependencies": {
