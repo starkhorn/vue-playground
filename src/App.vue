@@ -20,7 +20,8 @@
 
 <script>
 import { mapState } from 'vuex'
-import FloorPlanEditor from './components/FloorPlanEditor'
+import FloorPlanEditor from './components/floor-plan-editor'
+import { FETCH_FLOOR } from './store/types'
 
 export default {
   name: 'app',
@@ -34,7 +35,7 @@ export default {
   },
 
   created: function() {
-    this.$store.dispatch('fetchFloor')
+    this.$store.dispatch(FETCH_FLOOR)
   }
 }
 </script>

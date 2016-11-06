@@ -1,5 +1,5 @@
-import CanvasAction from './CanvasAction'
-import CreateDeskAction from './CreateDeskAction'
+import CanvasAction from './canvas-action'
+import CreateDeskAction from './create-desk-action'
 
 export const NOOP = 'noop'
 export const CREATE_DESK = 'create-desk'

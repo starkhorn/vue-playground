@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import FloorCanvas from './FloorCanvas'
+import FloorCanvas from './floor-canvas'
 import { CREATE_DESK } from './canvas-actions'
 
 export default {

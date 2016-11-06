@@ -1,5 +1,6 @@
 import { fabric } from 'fabric'
-import CanvasAction from './CanvasAction'
+import CanvasAction from './canvas-action'
+import { CREATE_DESK } from '../../store/types'
 
 export default class CreateDeskAction extends CanvasAction {
 
@@ -44,7 +45,7 @@ export default class CreateDeskAction extends CanvasAction {
   mouseup(options) {
     let rect = this.creatingRect
 
-    this.store.dispatch('createDesk', {
+    this.store.dispatch(CREATE_DESK, {
       desk: {
         width: rect.width,
         height: rect.height,
