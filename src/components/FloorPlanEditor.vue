@@ -12,7 +12,7 @@
       </aside>
     </div>
     <div class="column">
-      <floor-canvas :width="1024" :height="768" :image="floor.image" :action="activeAction" :objects="floor.desks" />
+      <floor-canvas :width="1024" :height="768" :action="activeAction" :floor="floor" />
     </div>
   </div>
 </div>

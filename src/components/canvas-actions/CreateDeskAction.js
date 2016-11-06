@@ -42,6 +42,19 @@ export default class CreateDeskAction extends CanvasAction {
   }
 
   mouseup(options) {
+    let rect = this.creatingRect
+
+    this.store.dispatch('createDesk', {
+      desk: {
+        width: rect.width,
+        height: rect.height,
+        x: rect.left,
+        y: rect.top
+      }
+    }).then((desk) => {
+      rect.id = desk.id
+    })
+
     this.creatingRect = null
   }
 

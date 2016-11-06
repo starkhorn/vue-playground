@@ -1,8 +1,9 @@
 import _ from 'lodash'
 
 export default class CanvasAction {
-  constructor(canvas) {
-    this.canvas = canvas
+  constructor(vm) {
+    this.canvas = vm.canvas
+    this.store = vm.$store
   }
 
   activate() {

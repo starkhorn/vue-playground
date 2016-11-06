@@ -4,9 +4,9 @@ import CreateDeskAction from './CreateDeskAction'
 export const NOOP = 'noop'
 export const CREATE_DESK = 'create-desk'
 
-export function actionInitializer(canvas) {
+export function actionInitializer(vm) {
   return {
-    [NOOP]: new CanvasAction(canvas),
-    [CREATE_DESK]: new CreateDeskAction(canvas)
+    [NOOP]: new CanvasAction(vm),
+    [CREATE_DESK]: new CreateDeskAction(vm)
   }
 }

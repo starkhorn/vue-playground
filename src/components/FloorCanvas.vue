@@ -12,20 +12,21 @@ export default {
   props: {
     width: Number,
     height: Number,
-    image: String,
-    objects: {
-      type: Array,
-      default: []
-    },
-
+    floor: Object,
     action: String
   },
 
   mounted: function() {
     this.$nextTick(() => {
       this.createCanvas()
-      this.setupActionHandlers()
-      this.populateObjects()
+
+      this.$watch('floor', this.updateFloor, {
+        immediate: true
+      })
+
+      this.$watch('action', this.updateAction, {
+        immediate: true
+      })
     })
   },
 
@@ -34,32 +35,22 @@ export default {
       this.canvas = new fabric.Canvas(this.$refs.canvas, {
         uniScaleTransform: true
       })
+    },
 
-      fabric.Image.fromURL(this.image, (image) => {
+    updateFloor: function(floor) {
+      this.canvas.clear()
+
+      if (!floor) {
+        return
+      }
+
+      fabric.Image.fromURL(floor.image, (image) => {
         image.scaleToWidth(this.canvas.width)
 
         this.canvas.setBackgroundImage(image, this.canvas.renderAll.bind(this.canvas))
       })
-    },
 
-    setupActionHandlers: function() {
-      this.getAction().activate()
-
-      this.$watch('action', function(newAction, oldAction) {
-        this.getAction(oldAction).deactivate()
-        this.getAction().activate()
-      })
-    },
-
-    getAction: function(action) {
-      const actions = this.actions = this.actions || actionInitializer(this.canvas)
-      const currentAction = this.action
-
-      return actions[action || currentAction] || actions[NOOP]
-    },
-
-    populateObjects: function() {
-      this.objects.forEach((object) => {
+      this.floor.desks.forEach((object) => {
         this.canvas.add(this.newObject(object))
       })
     },
@@ -73,6 +64,18 @@ export default {
         width: object.width,
         height: object.height
       })
+    },
+
+    updateAction: function(action, oldAction) {
+      this.getAction(oldAction).deactivate()
+      this.getAction().activate()
+    },
+
+    getAction: function(action) {
+      const actions = this.actions = this.actions || actionInitializer(this)
+      const currentAction = this.action
+
+      return actions[action || currentAction] || actions[NOOP]
     }
   }
 }

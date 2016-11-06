@@ -31,6 +31,10 @@ export default {
 
   components: {
     FloorPlanEditor
+  },
+
+  created: function() {
+    this.$store.dispatch('fetchFloor')
   }
 }
 </script>
