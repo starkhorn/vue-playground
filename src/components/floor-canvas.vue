@@ -20,7 +20,11 @@ export default {
     this.$nextTick(() => {
       this.createCanvas()
 
-      this.$watch('floor', this.updateFloor, {
+      this.$watch('floor.image', this.updateFloorImage, {
+        immediate: true
+      })
+
+      this.$watch('floor.desks', this.updateFloorDesks, {
         immediate: true
       })
 
@@ -37,32 +41,35 @@ export default {
       })
     },
 
-    updateFloor: function(floor) {
-      this.canvas.clear()
+    updateFloorImage: function(image) {
+      if (!image) {
+        this.canvas.setBackgroundImage(null)
+        this.canvas.renderAll()
 
-      if (!floor) {
         return
       }
 
-      fabric.Image.fromURL(floor.image, (image) => {
+      fabric.Image.fromURL(image, (image) => {
         image.scaleToWidth(this.canvas.width)
 
         this.canvas.setBackgroundImage(image, this.canvas.renderAll.bind(this.canvas))
       })
-
-      this.floor.desks.forEach((object) => {
-        this.canvas.add(this.newObject(object))
-      })
     },
 
-    newObject: function(object) {
-      return new fabric.Rect({
-        fill: 'green',
-        opacity: 0.2,
-        left: object.x,
-        top: object.y,
-        width: object.width,
-        height: object.height
+    updateFloorDesks: function(desks = []) {
+      this.canvas.remove(...this.canvas.getObjects())
+
+      desks.forEach((desk) => {
+        let deskShape = new fabric.Rect({
+          fill: 'green',
+          opacity: 0.2,
+          left: desk.x,
+          top: desk.y,
+          width: desk.width,
+          height: desk.height
+        })
+
+        this.canvas.add(deskShape)
       })
     },
 
