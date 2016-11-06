@@ -7,6 +7,7 @@
 <script>
 import { fabric } from 'fabric'
 import { actionInitializer, NOOP } from './canvas-actions'
+import Desk from './fabric/desk'
 
 export default {
   props: {
@@ -57,32 +58,29 @@ export default {
     },
 
     updateFloorDesks: function(desks = []) {
-      this.canvas.remove(...this.canvas.getObjects())
+      const existingShapes = this.canvas.getObjects()
+      const shapes = desks.map((desk) => {
+        return new Desk({
+          ...desk,
 
-      desks.forEach((desk) => {
-        let deskShape = new fabric.Rect({
-          fill: 'green',
-          opacity: 0.2,
           left: desk.x,
-          top: desk.y,
-          width: desk.width,
-          height: desk.height
+          top: desk.y
         })
-
-        this.canvas.add(deskShape)
       })
+
+      this.canvas.remove(...existingShapes)
+      this.canvas.add(...shapes)
     },
 
-    updateAction: function(action, oldAction) {
+    updateAction: function(newAction, oldAction) {
       this.getAction(oldAction).deactivate()
-      this.getAction().activate()
+      this.getAction(newAction).activate()
     },
 
     getAction: function(action) {
       const actions = this.actions = this.actions || actionInitializer(this)
-      const currentAction = this.action
 
-      return actions[action || currentAction] || actions[NOOP]
+      return actions[action] || actions[NOOP]
     }
   }
 }

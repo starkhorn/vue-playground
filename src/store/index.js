@@ -8,7 +8,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
 
   state: {
-    floor: null
+    floor: null,
+    created: new Date()
   },
 
   mutations,

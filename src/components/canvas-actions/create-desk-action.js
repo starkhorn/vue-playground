@@ -1,6 +1,6 @@
-import { fabric } from 'fabric'
 import CanvasAction from './canvas-action'
 import { CREATE_DESK } from 'store/types'
+import Desk from 'components/fabric/desk'
 
 export default class CreateDeskAction extends CanvasAction {
 
@@ -27,40 +27,33 @@ export default class CreateDeskAction extends CanvasAction {
   }
 
   mousedown({ e }) {
-    const existingObject = this.canvas.findTarget(e)
-    if (existingObject) {
+    const alreadyHasObject = this.canvas.findTarget(e)
+    if (alreadyHasObject) {
       return
     }
 
     this.origin = this.canvas.getPointer(e)
-    this.creatingRect = new fabric.Rect({
-      fill: 'green',
-      opacity: 0.2,
-      visible: true
-    })
-
-    this.canvas.add(this.creatingRect)
+    this.newDesk = new Desk()
+    this.canvas.add(this.newDesk)
   }
 
   mouseup(options) {
-    let rect = this.creatingRect
+    const newDesk = this.newDesk
+    if (!newDesk) {
+      return
+    }
 
     this.store.dispatch(CREATE_DESK, {
-      desk: {
-        width: rect.width,
-        height: rect.height,
-        x: rect.left,
-        y: rect.top
-      }
+      desk: newDesk.toEntity()
     }).then((desk) => {
-      rect.id = desk.id
+      newDesk.id = desk.id
     })
 
-    this.creatingRect = null
+    this.newDesk = null
   }
 
   mousemove({ e }) {
-    if (!this.creatingRect) {
+    if (!this.newDesk) {
       return
     }
 
@@ -68,14 +61,14 @@ export default class CreateDeskAction extends CanvasAction {
     const dx = pointer.x - this.origin.x
     const dy = pointer.y - this.origin.y
 
-    this.creatingRect.set({
+    this.newDesk.set({
       left: this.origin.x + Math.min(0, dx),
       top: this.origin.y + Math.min(0, dy),
       width: Math.abs(dx),
       height: Math.abs(dy)
     })
 
-    this.creatingRect.setCoords()
+    this.newDesk.setCoords()
     this.canvas.renderAll()
   }
 }

@@ -15,13 +15,23 @@ export default {
     })
   },
 
-  [types.CREATE_DESK]({ commit, state }, payload) {
-    return new Promise((resolve, reject) => {
-      const desk = payload.desk
-      desk.id = Math.random().toString().substring(2, 10)
+  [types.CREATE_DESK]({ commit, state }, { desk }) {
+    const newDesk = {
+      ...desk,
 
-      commit(types.CREATE_DESK, payload)
-      resolve(desk)
+      id: Math.random().toString().substring(2, 10)
+    }
+
+    commit(types.CREATE_DESK, {
+      desk: newDesk
+    })
+
+    return newDesk
+  },
+
+  [types.UPDATE_DESK]({ commit, state }, { desk }) {
+    commit(types.UPDATE_DESK, {
+      desk
     })
   }
 }
