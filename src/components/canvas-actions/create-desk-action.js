@@ -1,6 +1,6 @@
 import { fabric } from 'fabric'
 import CanvasAction from './canvas-action'
-import { CREATE_DESK } from '../../store/types'
+import { CREATE_DESK } from 'store/types'
 
 export default class CreateDeskAction extends CanvasAction {
 
