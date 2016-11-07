@@ -4,8 +4,7 @@
 </template>
 
 <script>
-import { fabric } from 'fabric'
-import { UPDATE_DESK } from 'store/types'
+import DeskShape from 'components/fabric/desk'
 
 export default {
   props: ['canvas', 'x', 'y', 'width', 'height', 'id'],
@@ -34,17 +33,10 @@ export default {
   },
 
   created: function() {
-    this.desk = new fabric.Rect({
-      fill: 'green',
-      opacity: 0.2,
+    this.desk = new DeskShape({
+      id: this.id,
 
       ...this.dimension
-    })
-
-    this.desk.on('modified', () => {
-      this.$store.dispatch(UPDATE_DESK, {
-        desk: this.toEntity()
-      })
     })
 
     if (this.canvas) {
@@ -54,24 +46,6 @@ export default {
 
   destroyed: function() {
     this.desk.remove()
-  },
-
-  methods: {
-    toEntity: function() {
-      // getWidth() !== this.desk.width, same as height? bug?
-      const desk = this.desk
-      const width = desk.getWidth() - desk.strokeWidth
-      const height = desk.getHeight() - desk.strokeWidth
-
-      return {
-        id: this.id,
-        x: desk.left,
-        y: desk.top,
-
-        width: width,
-        height: height
-      }
-    }
   }
 }
 </script>

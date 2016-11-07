@@ -5,8 +5,8 @@
       <aside class="menu">
         <p class="menu-label">Tools</p>
         <ul class="menu-list">
-          <li>
-            <a href="#" @click="toggleAction(CREATE_DESK)" :class="activeAction === CREATE_DESK ? 'is-active' : ''">New Desk</a>
+          <li v-for="action in actions" @click="toggleAction(action.title)">
+            <a href="#" :canvas="canvas" :is="action.component" :title="action.title" :active="canvas && activeAction === action.title" />
           </li>
         </ul>
       </aside>
@@ -23,7 +23,7 @@
 <script>
 import FloorCanvas from './floor-canvas'
 import Desk from './desk'
-import { CREATE_DESK } from './canvas-actions'
+import CreateDeskAction from './canvas-actions/create-desk-action'
 
 export default {
   components: {
@@ -36,7 +36,10 @@ export default {
   data: () => ({
     canvas: null,
     activeAction: null,
-    CREATE_DESK
+    actions: [{
+      title: 'New Desk',
+      component: CreateDeskAction
+    }]
   }),
 
   computed: {

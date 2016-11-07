@@ -7,9 +7,7 @@
 </template>
 
 <script>
-import {
-  fabric
-} from 'fabric'
+import { fabric } from 'fabric'
 
 export default {
 
@@ -41,7 +39,8 @@ export default {
       }
 
       fabric.Image.fromURL(image, (image) => {
-        image.scaleToWidth(this.canvas.width)
+        // TODO: implement panning
+        // image.scaleToWidth(this.canvas.width)
 
         this.canvas.setBackgroundImage(image, this.canvas.renderAll.bind(this.canvas))
       })

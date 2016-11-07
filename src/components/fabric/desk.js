@@ -8,7 +8,6 @@ const defaultOptions = {
 }
 
 export default fabric.util.createClass(fabric.Rect, {
-  type: 'desk',
 
   initialize(options) {
     this.callSuper('initialize', {
