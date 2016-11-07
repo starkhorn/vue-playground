@@ -12,7 +12,9 @@
       </aside>
     </div>
     <div class="column">
-      <floor-canvas :width="1024" :height="768" :action="activeAction" :floor="floor" />
+      <floor-canvas @ready="canvas=$event.canvas" :width="1024" :height="768" :image="image">
+        <desk v-for="desk in desks" :canvas="canvas" :id="desk.id" :x="desk.x" :y="desk.y" :width="desk.width" :height="desk.height" />
+      </floor-canvas>
     </div>
   </div>
 </div>
@@ -20,19 +22,32 @@
 
 <script>
 import FloorCanvas from './floor-canvas'
+import Desk from './desk'
 import { CREATE_DESK } from './canvas-actions'
 
 export default {
   components: {
-    FloorCanvas
+    FloorCanvas,
+    Desk
   },
 
   props: ['floor'],
 
   data: () => ({
+    canvas: null,
     activeAction: null,
     CREATE_DESK
   }),
+
+  computed: {
+    image: function() {
+      return this.floor && this.floor.image
+    },
+
+    desks: function() {
+      return this.floor && this.floor.desks
+    }
+  },
 
   methods: {
     toggleAction: function(action) {

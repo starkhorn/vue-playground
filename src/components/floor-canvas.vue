@@ -1,48 +1,38 @@
 <template lang="html">
   <div>
-    <canvas ref="canvas" :width="width" :height="height"></canvas>
+    <canvas ref="canvas" :width="width" :height="height">
+      <slot></slot>
+    </canvas>
   </div>
 </template>
 
 <script>
-import { fabric } from 'fabric'
-import { actionInitializer, NOOP } from './canvas-actions'
-import Desk from './fabric/desk'
+import {
+  fabric
+} from 'fabric'
 
 export default {
-  props: {
-    width: Number,
-    height: Number,
-    floor: Object,
-    action: String
-  },
 
-  mounted: function() {
+  props: ['image', 'width', 'height'],
+
+  mounted() {
     this.$nextTick(() => {
-      this.createCanvas()
+      this.canvas = new fabric.Canvas(this.$refs.canvas, {
+        uniScaleTransform: true
+      })
 
-      this.$watch('floor.image', this.updateFloorImage, {
+      this.$watch('image', this.updateImage, {
         immediate: true
       })
 
-      this.$watch('floor.desks', this.updateFloorDesks, {
-        immediate: true
-      })
-
-      this.$watch('action', this.updateAction, {
-        immediate: true
+      this.$emit('ready', {
+        canvas: this.canvas
       })
     })
   },
 
   methods: {
-    createCanvas: function() {
-      this.canvas = new fabric.Canvas(this.$refs.canvas, {
-        uniScaleTransform: true
-      })
-    },
-
-    updateFloorImage: function(image) {
+    updateImage(image) {
       if (!image) {
         this.canvas.setBackgroundImage(null)
         this.canvas.renderAll()
@@ -55,36 +45,10 @@ export default {
 
         this.canvas.setBackgroundImage(image, this.canvas.renderAll.bind(this.canvas))
       })
-    },
-
-    updateFloorDesks: function(desks = []) {
-      const existingShapes = this.canvas.getObjects()
-      const shapes = desks.map((desk) => {
-        return new Desk({
-          ...desk,
-
-          left: desk.x,
-          top: desk.y
-        })
-      })
-
-      this.canvas.remove(...existingShapes)
-      this.canvas.add(...shapes)
-    },
-
-    updateAction: function(newAction, oldAction) {
-      this.getAction(oldAction).deactivate()
-      this.getAction(newAction).activate()
-    },
-
-    getAction: function(action) {
-      const actions = this.actions = this.actions || actionInitializer(this)
-
-      return actions[action] || actions[NOOP]
     }
   }
 }
 </script>
 
-<style lang="css" scoped>
+<style lang="css">
 </style>
