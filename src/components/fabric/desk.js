@@ -30,8 +30,8 @@ export default fabric.util.createClass(fabric.Rect, {
       y: this.top,
 
       // getWidth() !== this.width, same as height? bug?
-      width: this.getWidth(),
-      height: this.getHeight()
+      width: this.getWidth() - this.strokeWidth,
+      height: this.getHeight() - this.strokeWidth
     }
   }
 })
