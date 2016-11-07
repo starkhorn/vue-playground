@@ -1,4 +1,4 @@
-# vue-playground
+# vue-playground [![Build Status](https://travis-ci.org/starkhorn/vue-playground.svg?branch=master)](https://travis-ci.org/starkhorn/vue-playground)
 
 > A Vue.js project
 
