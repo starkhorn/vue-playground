@@ -4,7 +4,7 @@
 </template>
 
 <script>
-import DeskShape from 'components/fabric/desk'
+import DeskShape from 'components/fabric/desk.fabric'
 
 export default {
   props: ['canvas', 'x', 'y', 'width', 'height', 'id'],

@@ -4,7 +4,7 @@
 
 <script>
 import { CREATE_DESK } from 'store/types'
-import DeskShape from 'components/fabric/desk'
+import DeskShape from 'components/fabric/desk.fabric'
 
 export default {
   props: ['title', 'active', 'canvas'],

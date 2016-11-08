@@ -12,7 +12,7 @@
 
   <div class="section">
     <div class="container">
-      <floor-plan-editor :floor="floor"></floor-plan-editor>
+      <floor-editor :floor="floor"></floor-editor>
     </div>
   </div>
 </div>
@@ -20,7 +20,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import FloorPlanEditor from './components/floor-plan-editor'
+import FloorEditor from './components/floor-editor'
 import { FETCH_FLOOR } from './store/types'
 
 export default {
@@ -31,7 +31,7 @@ export default {
   ]),
 
   components: {
-    FloorPlanEditor
+    FloorEditor
   },
 
   created: function() {

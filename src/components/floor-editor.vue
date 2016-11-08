@@ -5,8 +5,8 @@
       <aside class="menu">
         <p class="menu-label">Tools</p>
         <ul class="menu-list">
-          <li v-for="action in actions" @click="toggleAction(action.title)">
-            <a href="#" :canvas="canvas" :is="action.component" :title="action.title" :active="canvas && activeAction === action.title" />
+          <li v-for="menu in menus" @click="toggleMenu(menu.title)">
+            <a href="#" :canvas="canvas" :is="menu.command" :title="menu.title" :active="canvas && activeMenu === menu.title" />
           </li>
         </ul>
       </aside>
@@ -23,7 +23,7 @@
 <script>
 import FloorCanvas from './floor-canvas'
 import Desk from './desk'
-import CreateDeskAction from './canvas-actions/create-desk-action'
+import CreateDeskCommand from './canvas-commands/create-desk'
 
 export default {
   components: {
@@ -35,10 +35,10 @@ export default {
 
   data: () => ({
     canvas: null,
-    activeAction: null,
-    actions: [{
+    activeMenu: null,
+    menus: [{
       title: 'New Desk',
-      component: CreateDeskAction
+      command: CreateDeskCommand
     }]
   }),
 
@@ -53,11 +53,11 @@ export default {
   },
 
   methods: {
-    toggleAction: function(action) {
-      if (this.activeAction !== action) {
-        this.activeAction = action
+    toggleMenu: function(action) {
+      if (this.activeMenu !== action) {
+        this.activeMenu = action
       } else {
-        this.activeAction = null
+        this.activeMenu = null
       }
     }
   }
