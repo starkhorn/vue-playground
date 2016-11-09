@@ -13,6 +13,12 @@ export default {
 
   props: ['image', 'width', 'height'],
 
+  data() {
+    return {
+      canvas: null
+    }
+  },
+
   mounted() {
     this.$nextTick(() => {
       this.canvas = new fabric.Canvas(this.$refs.canvas, {
@@ -31,19 +37,8 @@ export default {
 
   methods: {
     updateImage(image) {
-      if (!image) {
-        this.canvas.setBackgroundImage(null)
-        this.canvas.renderAll()
-
-        return
-      }
-
-      fabric.Image.fromURL(image, (image) => {
-        // TODO: implement panning
-        // image.scaleToWidth(this.canvas.width)
-
-        this.canvas.setBackgroundImage(image, this.canvas.renderAll.bind(this.canvas))
-      })
+      // TODO: implement panning
+      this.canvas.setBackgroundImage(image, this.canvas.renderAll.bind(this.canvas))
     }
   }
 }

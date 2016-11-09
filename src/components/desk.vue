@@ -7,7 +7,7 @@
 import DeskShape from 'components/fabric/desk.fabric'
 
 export default {
-  props: ['canvas', 'x', 'y', 'width', 'height', 'id'],
+  props: ['x', 'y', 'width', 'height', 'id'],
 
   computed: {
     dimension() {
@@ -19,6 +19,10 @@ export default {
         scaleX: 1.00,
         scaleY: 1.00
       }
+    },
+
+    canvas() {
+      return this.$parent.canvas
     }
   },
 
@@ -39,9 +43,7 @@ export default {
       ...this.dimension
     })
 
-    if (this.canvas) {
-      this.canvas.add(this.desk)
-    }
+    this.canvas.add(this.desk)
   },
 
   destroyed() {

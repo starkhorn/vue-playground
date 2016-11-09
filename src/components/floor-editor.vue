@@ -6,14 +6,14 @@
         <p class="menu-label">Tools</p>
         <ul class="menu-list">
           <li v-for="menu in menus" @click="toggleMenu(menu.title)">
-            <a href="#" :canvas="canvas" :is="menu.command" :title="menu.title" :active="canvas && activeMenu === menu.title" />
+            <component :is="menu.command" :canvas="activeCanvas" :title="menu.title" :active="activeCanvas && activeMenu === menu.title" />
           </li>
         </ul>
       </aside>
     </div>
     <div class="column">
-      <floor-canvas @ready="canvas=$event.canvas" :width="1024" :height="768" :image="image">
-        <desk v-for="desk in desks" :canvas="canvas" :id="desk.id" :x="desk.x" :y="desk.y" :width="desk.width" :height="desk.height" />
+      <floor-canvas :width="1024" :height="768" :image="image" @ready="activeCanvas=$event.canvas">
+        <desk v-for="desk in desks" :id="desk.id" :x="desk.x" :y="desk.y" :width="desk.width" :height="desk.height" />
       </floor-canvas>
     </div>
   </div>
@@ -34,7 +34,7 @@ export default {
   props: ['floor'],
 
   data: () => ({
-    canvas: null,
+    activeCanvas: null,
     activeMenu: null,
     menus: [{
       title: 'New Desk',
