@@ -34,7 +34,7 @@ export default {
     FloorEditor
   },
 
-  created: function() {
+  created() {
     this.$store.dispatch(FETCH_FLOOR)
   }
 }

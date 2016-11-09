@@ -10,7 +10,7 @@ export default {
   props: ['canvas', 'x', 'y', 'width', 'height', 'id'],
 
   computed: {
-    dimension: function() {
+    dimension() {
       return {
         left: this.x,
         top: this.y,
@@ -23,7 +23,7 @@ export default {
   },
 
   watch: {
-    dimension: function(dimension) {
+    dimension(dimension) {
       this.desk.set({
         ...dimension
       })
@@ -32,7 +32,7 @@ export default {
     }
   },
 
-  created: function() {
+  created() {
     this.desk = new DeskShape({
       id: this.id,
 
@@ -44,7 +44,7 @@ export default {
     }
   },
 
-  destroyed: function() {
+  destroyed() {
     this.desk.remove()
   }
 }

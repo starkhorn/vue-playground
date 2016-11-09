@@ -43,17 +43,17 @@ export default {
   }),
 
   computed: {
-    image: function() {
+    image() {
       return this.floor && this.floor.image
     },
 
-    desks: function() {
+    desks() {
       return this.floor && this.floor.desks
     }
   },
 
   methods: {
-    toggleMenu: function(action) {
+    toggleMenu(action) {
       if (this.activeMenu !== action) {
         this.activeMenu = action
       } else {

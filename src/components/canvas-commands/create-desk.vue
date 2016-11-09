@@ -10,7 +10,7 @@ export default {
   props: ['title', 'active', 'canvas'],
 
   watch: {
-    active: function(active) {
+    active(active) {
       if (active) {
         this.activate()
       } else {
@@ -19,7 +19,7 @@ export default {
     }
   },
 
-  created: function() {
+  created() {
     this.canvasEvents = {
       'mouse:down': this.canvasMousedown.bind(this),
       'mouse:up': this.canvasMouseup.bind(this),
@@ -28,12 +28,12 @@ export default {
   },
 
   methods: {
-    activate: function() {
+    activate() {
       this.canvas.selection = false
       this.canvas.on(this.canvasEvents)
     },
 
-    deactivate: function() {
+    deactivate() {
       this.canvas.selection = true
       this.canvas.off(this.canvasEvents)
     },
