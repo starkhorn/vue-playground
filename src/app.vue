@@ -35,15 +35,20 @@ export default {
   },
 
   created() {
-    this.$store.dispatch(FETCH_PLANS).then(({ plans }) => {
+    this.fetchPlans()
+  },
+
+  methods: {
+    async fetchPlans() {
+      const { plans } = await this.$store.dispatch(FETCH_PLANS)
       const firstPlan = plans && plans[0]
       const firstBuilding = firstPlan && firstPlan.buildings[0]
       const firstFloor = firstBuilding && firstBuilding.floors[0]
 
       this.$store.commit(SELECT_FLOOR, { floor: firstFloor })
-    })
+    }
   }
 }
 </script>
 
-<style lang="scss">@import 'node_modules/bulma/bulma';</style>
+<style lang="scss">@import '~bulma/bulma';</style>
