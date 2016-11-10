@@ -11,7 +11,7 @@ export default {
       })
   },
 
-  [types.CREATE_DESK]({ commit, state }, { desk }) {
+  [types.CREATE_DESK]({ commit }, { desk }) {
     const newDesk = {
       ...desk,
 
@@ -25,9 +25,11 @@ export default {
     return newDesk
   },
 
-  [types.UPDATE_DESK]({ commit, state }, { desk }) {
-    commit(types.UPDATE_DESK, {
-      desk
-    })
+  [types.UPDATE_DESK]({ commit }, payload) {
+    commit(types.UPDATE_DESK, payload)
+  },
+
+  [types.SELECT_FLOOR]({ commit }, payload) {
+    commit(types.SELECT_FLOOR, payload)
   }
 }

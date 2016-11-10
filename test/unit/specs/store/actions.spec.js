@@ -1,9 +1,9 @@
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
-import actions from 'store/actions'
 import * as types from 'store/types'
+import store from 'store'
 
-describe('store actions', function () {
+describe('A store', function () {
   beforeEach(function () {
     this.server = new MockAdapter(axios)
   })
@@ -12,42 +12,114 @@ describe('store actions', function () {
     this.server.restore()
   })
 
-  describe('"FETCH_PLANS"', function () {
-    it('calls the /api/plans and commits "FETCH_PLANS" mutation', function () {
-      const commit = sinon.spy()
+  describe('"FETCH_PLANS" action', function () {
+    it('calls the /api/plans and set plans to the response', function () {
       const expectedPlans = [{
         id: 1
       }]
 
       this.server.onGet('/api/plans').reply(200, expectedPlans)
 
-      actions[types.FETCH_PLANS]({ commit }).then(() => {
-        expect(commit).to.have.been.calledOnce()
-        expect(commit).to.have.been.calledWith({
-          plans: expectedPlans
+      return store.dispatch(types.FETCH_PLANS)
+        .then(() => {
+          expect(store.state.plans).to.equal(expectedPlans)
         })
-      })
     })
   })
 
-  describe.skip('"CREATE_DESK"', function () {
-    it('commits "CREATE_DESK" mutation with a new desk as a payload', async function () {
-      const commit = sinon.spy()
+  describe('"CREATE_DESK" action', function () {
+    it('adds a new desk to the floor', async function () {
+      store.state.floor = {
+        desks: []
+      }
+
       const payload = {
         desk: {
-          code: 'd0031'
+          code: 'D0031'
         }
       }
 
-      actions[types.CREATE_DESK]({ commit }, payload).then(() => {
-        expect(commit).to.have.been.calledOnce()
-        expect(commit).to.have.been.calledWith(sinon.match({
-          desk: {
-            code: 'd0031',
-            id: sinon.match.any
-          }
-        }))
-      })
+      return store.dispatch(types.CREATE_DESK, payload)
+        .then(() => {
+          const desks = store.state.floor.desks
+          const newDesk = desks[0]
+
+          expect(desks).to.have.lengthOf(1)
+          expect(newDesk).to.have.property('code', 'D0031')
+          expect(newDesk).to.have.property('id')
+        })
+    })
+  })
+
+  describe('"UPDATE_DESK" action', function () {
+    it('updates a desk when its id matched', function () {
+      const desks = [{
+        id: 1,
+        code: 'D0079'
+      }, {
+        id: 2,
+        code: 'D0080'
+      }]
+
+      const payload = {
+        desk: {
+          id: 2,
+          code: 'D0050'
+        }
+      }
+
+      const expected = [{
+        id: 1,
+        code: 'D0079'
+      }, {
+        id: 2,
+        code: 'D0050'
+      }]
+
+      store.state.floor = {
+        desks
+      }
+
+      return store.dispatch(types.UPDATE_DESK, payload)
+        .then(() => {
+          expect(store.state.floor.desks).to.deep.equal(expected)
+        })
+    })
+
+    it('does not update a desk when its id does not match', function () {
+      const desks = [{
+        id: 1,
+        code: 'D0079'
+      }]
+
+      const payload = {
+        desk: {
+          id: 2,
+          code: 'D0050'
+        }
+      }
+
+      store.state.floor = {
+        desks
+      }
+
+      return store.dispatch(types.UPDATE_DESK, payload)
+        .then(() => {
+          expect(store.state.floor.desks).to.deep.equal(desks)
+        })
+    })
+  })
+
+  describe('"SELECT_FLOOR" action', function () {
+    it('sets the floor as the current floor', function () {
+      const floor = {
+        desks: []
+      }
+
+      store.dispatch(types.SELECT_FLOOR, { floor })
+        .then(() => {
+          expect(store.floor).to.equal(floor)
+        })
     })
   })
 })
