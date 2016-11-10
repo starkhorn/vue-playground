@@ -21,7 +21,12 @@ module.exports = {
     port: 9000,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      '/api/plans': {
+        target: 'http://localhost:9000/static/json/plans-mock.json',
+        ignorePath: true
+      }
+    },
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README
     // (https://github.com/webpack/css-loader#sourcemaps)

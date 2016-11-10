@@ -3,7 +3,7 @@ import axios from 'axios'
 
 export default {
   [types.FETCH_PLANS]({ commit }) {
-    return axios.get('/static/json/plans-mock.json')
+    return axios.get('/api/plans')
       .then(({ data: plans }) => {
         commit(types.FETCH_PLANS, { plans })
 
