@@ -13,7 +13,9 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
+    "axios": "^0.15.2",
     "bulma": "^0.2.3",
+    "es6-promise": "^4.0.5",
     "fabric": "^1.6.6",
     "lodash": "^4.16.6",
     "node-sass": "^3.11.2",
@@ -36,7 +38,6 @@
     "connect-history-api-fallback": "^1.1.0",
     "cross-spawn": "^4.0.2",
     "css-loader": "^0.25.0",
-    "es6-promise": "^4.0.5",
     "eslint": "^3.7.1",
     "eslint-config-standard": "^6.1.0",
     "eslint-friendly-formatter": "^2.0.5",

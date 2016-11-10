@@ -5,8 +5,8 @@
       <aside class="menu">
         <p class="menu-label">Tools</p>
         <ul class="menu-list">
-          <li v-for="menu in menus" @click="toggleMenu(menu.title)">
-            <component :is="menu.command" :canvas="activeCanvas" :title="menu.title" :active="activeCanvas && activeMenu === menu.title" />
+          <li v-for="menu in menus" @click.prevent="toggleMenu(menu.title)">
+            <component :is="menu.command" :canvas="activeCanvas" :title="menu.title" :active="activeCanvas && selectedMenu === menu.title" />
           </li>
         </ul>
       </aside>
@@ -35,7 +35,7 @@ export default {
 
   data: () => ({
     activeCanvas: null,
-    activeMenu: null,
+    selectedMenu: null,
     menus: [{
       title: 'New Desk',
       command: CreateDeskCommand
@@ -53,11 +53,11 @@ export default {
   },
 
   methods: {
-    toggleMenu(action) {
-      if (this.activeMenu !== action) {
-        this.activeMenu = action
+    toggleMenu(menu) {
+      if (this.selectedMenu !== menu) {
+        this.selectedMenu = menu
       } else {
-        this.activeMenu = null
+        this.selectedMenu = null
       }
     }
   }

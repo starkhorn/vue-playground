@@ -12,7 +12,7 @@
 
   <div class="section">
     <div class="container">
-      <floor-editor :floor="floor"></floor-editor>
+      <floor-editor :floor="selectedFloor"></floor-editor>
     </div>
   </div>
 </div>
@@ -21,21 +21,27 @@
 <script>
 import { mapState } from 'vuex'
 import FloorEditor from './components/floor-editor'
-import { FETCH_FLOOR } from './store/types'
+import { FETCH_PLANS, SELECT_FLOOR } from './store/types'
 
 export default {
   name: 'app',
 
-  computed: mapState([
-    'floor'
-  ]),
+  computed: mapState({
+    selectedFloor: 'floor'
+  }),
 
   components: {
     FloorEditor
   },
 
   created() {
-    this.$store.dispatch(FETCH_FLOOR)
+    this.$store.dispatch(FETCH_PLANS).then(({ plans }) => {
+      const firstPlan = plans && plans[0]
+      const firstBuilding = firstPlan && firstPlan.buildings[0]
+      const firstFloor = firstBuilding && firstBuilding.floors[0]
+
+      this.$store.commit(SELECT_FLOOR, { floor: firstFloor })
+    })
   }
 }
 </script>

@@ -3,8 +3,8 @@ import * as types from './types'
 
 export default {
 
-  [types.UPDATE_FLOOR](state, { floor }) {
-    state.floor = floor
+  [types.FETCH_PLANS](state, { plans }) {
+    state.plans = plans
   },
 
   [types.CREATE_DESK](state, { desk }) {
@@ -23,5 +23,9 @@ export default {
         return eachDesk.id === desk.id ? desk : eachDesk
       })
     }
+  },
+
+  [types.SELECT_FLOOR](state, { floor }) {
+    state.floor = floor
   }
 }
