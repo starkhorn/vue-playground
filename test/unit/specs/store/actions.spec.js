@@ -1,15 +1,18 @@
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import * as types from 'store/types'
-import store from 'store'
+import { createStore } from 'store'
 
 describe('A store', function () {
+  let store, server
+
   beforeEach(function () {
-    this.server = new MockAdapter(axios)
+    store = createStore()
+    server = new MockAdapter(axios)
   })
 
   afterEach(function () {
-    this.server.restore()
+    server.restore()
   })
 
   describe('"FETCH_PLANS" action', function () {
@@ -18,7 +21,7 @@ describe('A store', function () {
         id: 1
       }]
 
-      this.server.onGet('/api/plans').reply(200, expectedPlans)
+      server.onGet('/api/plans').reply(200, expectedPlans)
 
       return store.dispatch(types.FETCH_PLANS)
         .then(() => {

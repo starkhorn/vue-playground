@@ -5,13 +5,17 @@ import actions from './actions'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+export function createStore() {
+  return new Vuex.Store({
 
-  state: {
-    plans: [],
-    floor: null
-  },
+    state: {
+      plans: [],
+      floor: null
+    },
 
-  mutations,
-  actions
-})
+    mutations,
+    actions
+  })
+}
+
+export default createStore()
