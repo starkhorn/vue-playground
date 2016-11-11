@@ -18,4 +18,14 @@ You can use any text editor or IDE of your choice, however, the recommended edit
 
   * (optional) lint the file when changed, the project will use ESLint to maintain coding practices so any editor that can automatically run ESLint rules will improve the development experience.
 
-  * (optional) highlight Vue single file component syntax. (see [Vue Syntax Highlighting](https://github.com/vuejs/awesome-vue#syntax-highlighting))
+  * (optional) highlight Vue single file component (file.vue) (see [Vue Syntax Highlighting](https://github.com/vuejs/awesome-vue#syntax-highlighting))
+
+Here are some editors I tried out with Vue.js and found quite them quite good:
+
+  * [Atom](https://atom.io/) - Atom currently, in my opinion, provides best support for Vue.js development. It also passes all of the above editor criteria.
+
+  * [Sublime Text](https://www.sublimetext.com/) - Sublime Text is really fast compared to Atom, it also provides lots of customization options through its package manager.
+
+  * [WebStorm](https://www.jetbrains.com/webstorm/) - I only heard that it works with .vue file but linting does not work.
+
+  * [Visual Studio Code](https://code.visualstudio.com/) - the youngest tool developed, I really like it but as of currently it does not fully support Vue.js (could not lint JavaScript on .vue file)
