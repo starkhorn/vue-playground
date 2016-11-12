@@ -50,11 +50,11 @@ export default fabric.util.createClass(fabric.Rect, {
         top: this.group.top + (this.top - groupOriginTop)
       }
 
-      console.debug('group (left, top) = ', { l: this.group.left, t: this.group.top })
-      console.debug('group (w, h) = ', { w: this.group.width, h: this.group.height })
-      console.debug('group origin point (left, top) = ', { left: groupOriginLeft, top: groupOriginTop })
-      console.debug('this (left, top) = ', { left: this.left, top: this.top })
-      console.debug('abs (left, top) = ', absPosition)
+      // console.debug('group (left, top) = ', { l: this.group.left, t: this.group.top })
+      // console.debug('group (w, h) = ', { w: this.group.width, h: this.group.height })
+      // console.debug('group origin point (left, top) = ', { left: groupOriginLeft, top: groupOriginTop })
+      // console.debug('this (left, top) = ', { left: this.left, top: this.top })
+      // console.debug('abs (left, top) = ', absPosition)
     } else {
       absPosition = {
         left: this.left,

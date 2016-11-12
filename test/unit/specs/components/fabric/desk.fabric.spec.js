@@ -1,4 +1,4 @@
-import { fabric } from 'fabric'
+import fabric from 'fabric'
 import DeskShape from 'components/fabric/desk.fabric'
 
 const PRECISION_TOLERANCE = 0.1
