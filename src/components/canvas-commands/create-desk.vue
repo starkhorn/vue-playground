@@ -21,9 +21,9 @@ export default {
 
   created() {
     this.canvasEvents = {
-      'mouse:down': this.canvasMousedown.bind(this),
-      'mouse:up': this.canvasMouseup.bind(this),
-      'mouse:move': this.canvasMousemove.bind(this)
+      'mouse:down': (args) => this.canvasMousedown(args),
+      'mouse:up': (args) => this.canvasMouseup(args),
+      'mouse:move': (args) => this.canvasMousemove(args)
     }
   },
 

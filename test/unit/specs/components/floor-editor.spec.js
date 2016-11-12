@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import _ from 'lodash'
 import FloorEditor from 'components/floor-editor'
+import simulateEvent from 'simulateEvent'
 
 describe('A floor editor', function () {
   beforeEach(function(done) {
@@ -62,7 +63,7 @@ describe('A floor editor', function () {
     })
 
     it('is active when clicked', function (done) {
-      this.newDeskMenu.$el.click()
+      simulateEvent(this.newDeskMenu.$el, 'click')
 
       this.newDeskMenu.$nextTick(() => {
         expect(this.newDeskMenu.active).to.be.true
@@ -72,10 +73,10 @@ describe('A floor editor', function () {
 
     it('is inactive when clicked while active', function (done) {
       // activate
-      this.newDeskMenu.$el.click()
+      simulateEvent(this.newDeskMenu.$el, 'click')
 
       // deactivate
-      this.newDeskMenu.$el.click()
+      simulateEvent(this.newDeskMenu.$el, 'click')
 
       this.newDeskMenu.$nextTick(() => {
         expect(this.newDeskMenu.active).to.be.false

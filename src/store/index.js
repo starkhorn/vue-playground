@@ -5,7 +5,7 @@ import actions from './actions'
 
 Vue.use(Vuex)
 
-export function createStore() {
+export function createStore(options) {
   return new Vuex.Store({
 
     state: {
@@ -14,7 +14,9 @@ export function createStore() {
     },
 
     mutations,
-    actions
+    actions,
+
+    ...options
   })
 }
 

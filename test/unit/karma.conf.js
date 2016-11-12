@@ -25,7 +25,16 @@ var webpackConfig = merge(baseConfig, {
     new webpack.DefinePlugin({
       'process.env': require('../../config/test.env')
     })
-  ]
+  ],
+  externals: {
+    simulateEvent: 'simulateEvent',
+    createEvent: 'createEvent'
+  },
+  resolve: {
+    alias: {
+      'test': path.resolve(__dirname, '../')
+    }
+  }
 })
 
 // no need for app entry during tests
@@ -56,7 +65,7 @@ module.exports = function (config) {
     browsers: ['PhantomJS'],
     frameworks: ['mocha', 'sinon-chai'],
     reporters: ['spec', 'coverage'],
-    files: [`${projectRoot}/static/lib/fabric/fabric.js`, './index.js'],
+    files: [`${projectRoot}/static/lib/fabric/fabric.js`, `${projectRoot}/static/lib/fabric/event.simulate.js`, './index.js'],
     preprocessors: {
       './index.js': ['webpack', 'sourcemap']
     },
