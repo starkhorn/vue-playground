@@ -1,7 +1,7 @@
 <template>
 <div>
   <div class="columns">
-    <div class="column">
+    <div class="column is-1">
       <aside class="menu">
         <p class="menu-label">Tools</p>
         <ul class="menu-list">
@@ -12,7 +12,7 @@
       </aside>
     </div>
     <div class="column">
-      <floor-canvas :width="1024" :height="768" :image="image" @ready="activeCanvas=$event.canvas">
+      <floor-canvas :width="1500" :height="768" :image="image" @ready="activeCanvas=$event.canvas">
         <desk v-for="desk in desks" :id="desk.id" :x="desk.x" :y="desk.y" :width="desk.width" :height="desk.height" />
       </floor-canvas>
     </div>

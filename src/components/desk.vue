@@ -10,14 +10,19 @@ export default {
   props: ['x', 'y', 'width', 'height', 'id'],
 
   computed: {
-    dimension() {
+    dimensions() {
       return {
-        left: this.x,
-        top: this.y,
         width: this.width,
         height: this.height,
         scaleX: 1.00,
         scaleY: 1.00
+      }
+    },
+
+    position() {
+      return {
+        left: this.x,
+        top: this.y
       }
     },
 
@@ -27,12 +32,26 @@ export default {
   },
 
   watch: {
-    dimension(dimension) {
+    dimensions(dimensions) {
       this.desk.set({
-        ...dimension
+        ...dimensions
       })
 
       this.canvas.renderAll()
+    },
+
+    position(position) {
+      this.desk.setAbsolutePosition(position)
+      this.canvas.renderAll()
+    },
+
+    canvas: {
+      immediate: true,
+      handler: function(canvas) {
+        if (canvas) {
+          canvas.add(this.desk)
+        }
+      }
     }
   },
 
@@ -40,10 +59,15 @@ export default {
     this.desk = new DeskShape({
       id: this.id,
 
-      ...this.dimension
+      ...this.dimensions,
+      ...this.position
     })
 
-    this.canvas.add(this.desk)
+    // this.$watch('canvas', (canvas) => {
+    //   if (canvas) {
+    //     canvas.add(this.desk)
+    //   }
+    // }, { immediate: true })
   },
 
   destroyed() {

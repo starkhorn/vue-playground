@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { fabric } from 'fabric'
+import CustomCanvas from 'components/fabric/canvas.fabric'
 
 export default {
 
@@ -21,7 +21,7 @@ export default {
 
   mounted() {
     this.$nextTick(() => {
-      this.canvas = new fabric.Canvas(this.$refs.canvas, {
+      this.canvas = new CustomCanvas(this.$refs.canvas, {
         uniScaleTransform: true
       })
 

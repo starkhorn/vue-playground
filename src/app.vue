@@ -1,7 +1,7 @@
 <template>
 <div id="app">
   <nav class="nav has-shadow">
-    <div class="container">
+    <div class="container is-fluid">
       <div class="nav-left">
         <a class="nav-item is-brand" href="#">
           <h3 class="title is-3">Floor Plan Visualizer</h3>
@@ -11,7 +11,7 @@
   </nav>
 
   <div class="section">
-    <div class="container">
+    <div class="container is-fluid">
       <floor-editor :floor="selectedFloor"></floor-editor>
     </div>
   </div>
