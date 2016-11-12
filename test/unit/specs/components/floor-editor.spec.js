@@ -3,8 +3,25 @@ import _ from 'lodash'
 import FloorEditor from 'components/floor-editor'
 
 describe('A floor editor', function () {
+  beforeEach(function(done) {
+    this.app = new Vue({
+      template: '<floor-editor :floor="floor" ref="editor"/>',
+      data: {
+        floor: {}
+      },
+      components: {
+        FloorEditor
+      }
+    }).$mount()
+
+    this.app.$nextTick(() => {
+      this.editor = this.app.$refs.editor
+      done()
+    })
+  })
+
   it('creates desk components for the floor', function (done) {
-    const floor = {
+    const floor = this.app.floor = {
       desks: [{
         id: 1
       }, {
@@ -12,14 +29,8 @@ describe('A floor editor', function () {
       }]
     }
 
-    const app = createApp({
-      data: {
-        floor
-      }
-    })
-
-    app.$nextTick(function () {
-      const editor = this.$refs.editor
+    this.app.$nextTick(() => {
+      const editor = this.editor
       const desks = editor.$refs.desks
 
       expect(desks).to.have.lengthOf(2)
@@ -32,21 +43,18 @@ describe('A floor editor', function () {
 
   describe('"New Desk" action menu', function () {
     beforeEach(function (done) {
-      const body = document.body
-      const el = document.createElement('div')
+      document.body.appendChild(this.app.$el)
 
-      body.appendChild(el)
-
-      const app = this.app = createApp({
-        el
-      })
-
-      const editor = app.$refs.editor
+      const editor = this.editor
       const menus = editor.$refs.menus
 
       this.newDeskMenu = _.find(menus, { title: 'New Desk' })
 
       done()
+    })
+
+    afterEach(function () {
+      document.body.removeChild(this.app.$el)
     })
 
     it('exists', function () {
@@ -75,17 +83,4 @@ describe('A floor editor', function () {
       })
     })
   })
-
-  function createApp(options) {
-    return new Vue({
-      template: '<floor-editor :floor="floor" ref="editor"/>',
-      data: {
-        floor: {}
-      },
-      components: {
-        FloorEditor
-      },
-      ...options
-    }).$mount()
-  }
 })
