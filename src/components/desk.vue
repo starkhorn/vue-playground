@@ -43,15 +43,6 @@ export default {
     position(position) {
       this.desk.setAbsolutePosition(position)
       this.canvas.renderAll()
-    },
-
-    canvas: {
-      immediate: true,
-      handler: function(canvas) {
-        if (canvas) {
-          canvas.add(this.desk)
-        }
-      }
     }
   },
 
@@ -63,11 +54,11 @@ export default {
       ...this.position
     })
 
-    // this.$watch('canvas', (canvas) => {
-    //   if (canvas) {
-    //     canvas.add(this.desk)
-    //   }
-    // }, { immediate: true })
+    this.$watch('canvas', (canvas) => {
+      if (canvas) {
+        canvas.add(this.desk)
+      }
+    }, { immediate: true })
   },
 
   destroyed() {

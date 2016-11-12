@@ -1,4 +1,4 @@
-import { fabric } from 'fabric'
+import fabric from 'fabric'
 import store from 'store'
 import { UPDATE_DESK } from 'store/types'
 
