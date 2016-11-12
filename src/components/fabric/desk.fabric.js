@@ -36,6 +36,8 @@ export default fabric.util.createClass(fabric.Rect, {
         ...position
       })
     }
+
+    this.setCoords()
   },
 
   getAbsolutePosition() {

@@ -6,14 +6,14 @@
         <p class="menu-label">Tools</p>
         <ul class="menu-list">
           <li v-for="menu in menus" @click.prevent="toggleMenu(menu.title)">
-            <component :is="menu.command" :canvas="activeCanvas" :title="menu.title" :active="activeCanvas && selectedMenu === menu.title" />
+            <component :is="menu.command" :canvas="activeCanvas" :title="menu.title" :active="selectedMenu === menu.title" ref="menus" />
           </li>
         </ul>
       </aside>
     </div>
     <div class="column">
       <floor-canvas :width="1500" :height="768" :image="image" @ready="activeCanvas=$event.canvas">
-        <desk v-for="desk in desks" :id="desk.id" :x="desk.x" :y="desk.y" :width="desk.width" :height="desk.height" />
+        <desk v-for="desk in desks" ref="desks" :desk="desk" />
       </floor-canvas>
     </div>
   </div>

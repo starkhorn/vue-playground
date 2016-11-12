@@ -7,13 +7,17 @@
 import DeskShape from 'components/fabric/desk.fabric'
 
 export default {
-  props: ['x', 'y', 'width', 'height', 'id'],
+  props: {
+    desk: {
+      default: {}
+    }
+  },
 
   computed: {
     dimensions() {
       return {
-        width: this.width,
-        height: this.height,
+        width: this.desk.width,
+        height: this.desk.height,
         scaleX: 1.00,
         scaleY: 1.00
       }
@@ -21,8 +25,8 @@ export default {
 
     position() {
       return {
-        left: this.x,
-        top: this.y
+        left: this.desk.x,
+        top: this.desk.y
       }
     },
 
@@ -33,7 +37,7 @@ export default {
 
   watch: {
     dimensions(dimensions) {
-      this.desk.set({
+      this.deskShape.set({
         ...dimensions
       })
 
@@ -41,14 +45,15 @@ export default {
     },
 
     position(position) {
-      this.desk.setAbsolutePosition(position)
+      this.deskShape.setAbsolutePosition(position)
+
       this.canvas.renderAll()
     }
   },
 
   created() {
-    this.desk = new DeskShape({
-      id: this.id,
+    this.deskShape = new DeskShape({
+      id: this.desk.id,
 
       ...this.dimensions,
       ...this.position
@@ -56,13 +61,13 @@ export default {
 
     this.$watch('canvas', (canvas) => {
       if (canvas) {
-        canvas.add(this.desk)
+        canvas.add(this.deskShape)
       }
     }, { immediate: true })
   },
 
   destroyed() {
-    this.desk.remove()
+    this.deskShape.remove()
   }
 }
 </script>
