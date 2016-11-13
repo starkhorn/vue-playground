@@ -1,10 +1,23 @@
 import fabric from 'fabric'
 import DeskShape from 'components/fabric/desk.fabric'
+import * as storeModule from 'store'
+import { createStore } from 'test/unit/helpers/mock-store'
 
 const PRECISION_TOLERANCE = 0.1
 
 /* eslint-disable no-new */
 describe('A fabric desk', function () {
+  beforeEach(function () {
+    this.store = createStore()
+
+    storeModule._default = storeModule.default
+    storeModule.default = this.store
+  })
+
+  afterEach(function () {
+    storeModule.default = storeModule._default
+  })
+
   describe('getAbsolutePosition()', function () {
     it('returns its own position when not in a group', function () {
       const desk = new DeskShape({
@@ -29,7 +42,7 @@ describe('A fabric desk', function () {
         top: 30
       })
 
-      new fabric.Group([ desk, anotherDesk ])
+      new fabric.Group([desk, anotherDesk])
 
       const deskAbsPosition = desk.getAbsolutePosition()
       expect(deskAbsPosition.left).to.be.closeTo(10, PRECISION_TOLERANCE)
@@ -57,7 +70,7 @@ describe('A fabric desk', function () {
     it('converts left and top to the group coordinate when in a group', function () {
       const desk = new DeskShape()
 
-      new fabric.Group([ desk ], {
+      new fabric.Group([desk], {
         width: 100,
         height: 100,
         left: 100,
@@ -76,6 +89,26 @@ describe('A fabric desk', function () {
   })
 
   describe('when selected', function () {
-    it('sets the application current desk to itself')
+    it('sets the application current desk to itself', function (done) {
+      // store.watch uses Vue watcher, use Promise here to prevent an exception
+      // thrown from this test to break Vue watcher loops
+      new Promise((resolve) => {
+        this.store.watch(
+          state => state.desk,
+          value => resolve(value)
+        )
+      })
+      .then((value) => {
+        expect(value).to.have.property('id', 15)
+
+        done()
+      })
+
+      let desk = new DeskShape({
+        id: 15
+      })
+
+      desk.trigger('selected')
+    })
   })
 })

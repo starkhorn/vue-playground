@@ -1,7 +1,7 @@
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import * as types from 'store/types'
-import { createStore } from 'store'
+import { createStore } from 'test/unit/helpers/mock-store'
 
 describe('A store', function () {
   let store, server

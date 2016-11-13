@@ -4,10 +4,14 @@ import createEvent from 'createEvent'
 import simulateEvent from 'simulateEvent'
 import CreateDesk from 'components/canvas-commands/create-desk'
 import DeskShape from 'components/fabric/desk.fabric'
-import store from 'test/unit/helpers/mock-store'
+import { createStore } from 'test/unit/helpers/mock-store'
 
 describe('Create Desk canvas command', function () {
+  let store
+
   beforeEach(function (done) {
+    store = createStore()
+
     this.canvas = new fabric.Canvas()
     this.app = new Vue({
       template: '<create-desk :active="active" :title="title" :canvas="canvas" ref="command"/>',

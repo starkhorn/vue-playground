@@ -1,4 +1,4 @@
-import { createStore } from 'store'
+import { createStore as createRealStore } from 'store'
 
 const floor = {
   desks: []
@@ -10,9 +10,16 @@ const plans = [{
   }]
 }]
 
-export default createStore({
-  state: {
-    plans,
-    floor
-  }
-})
+export function createStore(options) {
+  return createRealStore({
+    strict: false,
+
+    state: {
+      plans,
+      floor,
+      desk: null
+    },
+
+    ...options
+  })
+}

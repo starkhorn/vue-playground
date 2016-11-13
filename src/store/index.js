@@ -7,10 +7,12 @@ Vue.use(Vuex)
 
 export function createStore(options) {
   return new Vuex.Store({
+    strict: process.env.NODE_ENV !== 'production',
 
     state: {
       plans: [],
-      floor: null
+      floor: null,
+      desk: null
     },
 
     mutations,
