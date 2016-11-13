@@ -47,7 +47,8 @@ describe('A floor editor', function () {
       document.body.appendChild(this.app.$el)
 
       const editor = this.editor
-      const menus = editor.$refs.menus
+      const tools = editor.$refs.tools
+      const menus = tools.$refs.menus
 
       this.newDeskMenu = _.find(menus, { title: 'New Desk' })
 

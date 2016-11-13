@@ -1,6 +1,6 @@
 <template lang="html">
   <div>
-    <canvas ref="canvas" :width="width" :height="height">
+    <canvas ref="canvas">
       <slot></slot>
     </canvas>
   </div>
@@ -19,6 +19,15 @@ export default {
     }
   },
 
+  computed: {
+    dimensions() {
+      return {
+        width: this.width,
+        height: this.height
+      }
+    }
+  },
+
   mounted() {
     this.$nextTick(() => {
       this.canvas = new CustomCanvas(this.$refs.canvas, {
@@ -26,6 +35,10 @@ export default {
       })
 
       this.$watch('image', this.updateImage, {
+        immediate: true
+      })
+
+      this.$watch('dimensions', this.updateDimensions, {
         immediate: true
       })
 
@@ -39,6 +52,10 @@ export default {
     updateImage(image) {
       // TODO: implement panning
       this.canvas.setBackgroundImage(image, this.canvas.renderAll.bind(this.canvas))
+    },
+
+    updateDimensions(dimensions) {
+      this.canvas.setDimensions(dimensions)
     }
   }
 }

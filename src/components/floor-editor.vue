@@ -1,20 +1,21 @@
 <template>
 <div>
   <div class="columns">
+    <!-- Tools -->
     <div class="column is-1">
-      <aside class="menu">
-        <p class="menu-label">Tools</p>
-        <ul class="menu-list">
-          <li v-for="menu in menus" @click.prevent="toggleMenu(menu.title)">
-            <component :is="menu.command" :canvas="activeCanvas" :title="menu.title" :active="selectedMenu === menu.title" ref="menus" />
-          </li>
-        </ul>
-      </aside>
+      <tools-panel :menus="menus" :canvas="activeCanvas" ref="tools"/>
     </div>
+
+    <!-- Canvas -->
     <div class="column">
-      <floor-canvas :width="1500" :height="768" :image="image" @ready="activeCanvas=$event.canvas">
+      <floor-canvas :width="canvasDimensions.width" :height="canvasDimensions.height" :image="image" @ready="activeCanvas=$event.canvas">
         <desk v-for="desk in desks" ref="desks" :desk="desk" />
       </floor-canvas>
+    </div>
+
+    <!-- Info -->
+    <div class="column" v-show="infoPanel.show">
+      <info-panel />
     </div>
   </div>
 </div>
@@ -24,22 +25,30 @@
 import FloorCanvas from './floor-canvas'
 import Desk from './desk'
 import CreateDeskCommand from './canvas-commands/create-desk'
+import ToolsPanel from 'components/tools-panel'
+import InfoPanel from 'components/info-panel'
 
 export default {
   components: {
     FloorCanvas,
-    Desk
+    Desk,
+    ToolsPanel,
+    InfoPanel
   },
 
   props: ['floor'],
 
   data: () => ({
     activeCanvas: null,
-    selectedMenu: null,
+
     menus: [{
       title: 'New Desk',
       command: CreateDeskCommand
-    }]
+    }],
+
+    infoPanel: {
+      show: false
+    }
   }),
 
   computed: {
@@ -49,15 +58,15 @@ export default {
 
     desks() {
       return this.floor && this.floor.desks
-    }
-  },
+    },
 
-  methods: {
-    toggleMenu(menu) {
-      if (this.selectedMenu !== menu) {
-        this.selectedMenu = menu
-      } else {
-        this.selectedMenu = null
+    canvasDimensions() {
+      const maxWidth = 1600
+      const height = 768
+
+      return {
+        width: maxWidth - (this.infoPanel.show ? 200 : 0),
+        height
       }
     }
   }
@@ -65,4 +74,8 @@ export default {
 </script>
 
 <style lang="css">
+  .info-panel {
+    background-color: lightblue;
+    width: 200px;
+  }
 </style>
