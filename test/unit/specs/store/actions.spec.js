@@ -16,22 +16,23 @@ describe('A store', function () {
   })
 
   describe('"FETCH_PLANS" action', function () {
-    it('calls the /api/plans and set plans to the response', function () {
+    it('calls the /api/plans and set plans to the response', function (done) {
       const expectedPlans = [{
         id: 1
       }]
 
       server.onGet('/api/plans').reply(200, expectedPlans)
 
-      return store.dispatch(types.FETCH_PLANS)
+      store.dispatch(types.FETCH_PLANS)
         .then(() => {
           expect(store.state.plans).to.equal(expectedPlans)
+          done()
         })
     })
   })
 
   describe('"CREATE_DESK" action', function () {
-    it('adds a new desk to the floor', async function () {
+    it('adds a new desk to the floor', function (done) {
       store.state.floor = {
         desks: []
       }
@@ -42,7 +43,7 @@ describe('A store', function () {
         }
       }
 
-      return store.dispatch(types.CREATE_DESK, payload)
+      store.dispatch(types.CREATE_DESK, payload)
         .then(() => {
           const desks = store.state.floor.desks
           const newDesk = desks[0]
@@ -50,12 +51,13 @@ describe('A store', function () {
           expect(desks).to.have.lengthOf(1)
           expect(newDesk).to.have.property('code', 'D0031')
           expect(newDesk).to.have.property('id')
+          done()
         })
     })
   })
 
   describe('"UPDATE_DESK" action', function () {
-    it('updates a desk when its id matched', function () {
+    it('updates a desk when its id matched', function (done) {
       const desks = [{
         id: 1,
         code: 'D0079'
@@ -83,13 +85,14 @@ describe('A store', function () {
         desks
       }
 
-      return store.dispatch(types.UPDATE_DESK, payload)
+      store.dispatch(types.UPDATE_DESK, payload)
         .then(() => {
           expect(store.state.floor.desks).to.deep.equal(expected)
+          done()
         })
     })
 
-    it('does not update a desk when its id does not match', function () {
+    it('does not update a desk when its id does not match', function (done) {
       const desks = [{
         id: 1,
         code: 'D0079'
@@ -106,22 +109,38 @@ describe('A store', function () {
         desks
       }
 
-      return store.dispatch(types.UPDATE_DESK, payload)
+      store.dispatch(types.UPDATE_DESK, payload)
         .then(() => {
           expect(store.state.floor.desks).to.deep.equal(desks)
+          done()
         })
     })
   })
 
   describe('"SELECT_FLOOR" action', function () {
-    it('sets the floor as the current floor', function () {
+    it('sets the floor as the current floor', function (done) {
       const floor = {
         desks: []
       }
 
       store.dispatch(types.SELECT_FLOOR, { floor })
         .then(() => {
-          expect(store.floor).to.equal(floor)
+          expect(store.state.floor).to.equal(floor)
+          done()
+        })
+    })
+  })
+
+  describe('"SELECT_DESK" action', function () {
+    it('sets the selected desk', function (done) {
+      const desk = {
+        id: 4
+      }
+
+      store.dispatch(types.SELECT_DESK, { desk })
+        .then(() => {
+          expect(store.state.desk).to.equal(desk)
+          done()
         })
     })
   })

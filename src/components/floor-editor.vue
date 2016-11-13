@@ -15,7 +15,7 @@
 
     <!-- Info -->
     <div class="column" v-show="infoPanel.show">
-      <info-panel />
+      <info-panel @toggled="infoPanel.show = $event.show" />
     </div>
   </div>
 </div>

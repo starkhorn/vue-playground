@@ -27,5 +27,9 @@ export default {
 
   [types.SELECT_FLOOR](state, { floor }) {
     state.floor = floor
+  },
+
+  [types.SELECT_DESK](state, { desk }) {
+    state.desk = desk
   }
 }

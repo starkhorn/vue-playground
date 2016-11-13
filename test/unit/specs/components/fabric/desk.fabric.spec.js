@@ -74,4 +74,8 @@ describe('A fabric desk', function () {
       expect(desk.top).to.be.closeTo(0, PRECISION_TOLERANCE)
     })
   })
+
+  describe('when selected', function () {
+    it('sets the application current desk to itself')
+  })
 })

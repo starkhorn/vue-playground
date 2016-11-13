@@ -1,6 +1,17 @@
 import * as types from './types'
 import axios from 'axios'
 
+const commitThrough = (types) => {
+  return types.reduce((memo, type) => {
+    return {
+      ...memo,
+      [type]({ commit }, payload) {
+        commit(type, payload)
+      }
+    }
+  }, {})
+}
+
 export default {
   [types.FETCH_PLANS]({ commit }) {
     return axios.get('/api/plans')
@@ -25,11 +36,9 @@ export default {
     return newDesk
   },
 
-  [types.UPDATE_DESK]({ commit }, payload) {
-    commit(types.UPDATE_DESK, payload)
-  },
-
-  [types.SELECT_FLOOR]({ commit }, payload) {
-    commit(types.SELECT_FLOOR, payload)
-  }
+  ...commitThrough([
+    types.UPDATE_DESK,
+    types.SELECT_FLOOR,
+    types.SELECT_DESK
+  ])
 }
