@@ -6,7 +6,7 @@ import CreateDesk from 'components/canvas-commands/create-desk'
 import DeskShape from 'components/fabric/desk.fabric'
 import { createStore } from 'test/unit/helpers/mock-store'
 
-describe('Create Desk canvas command', function () {
+describe('Create Desk command', function () {
   let store
 
   beforeEach(function (done) {
@@ -131,7 +131,7 @@ describe('Create Desk canvas command', function () {
 
     describe('when releasing a mouse on the canvas', function () {
       it('creates a desk', function () {
-        const desksBefore = [...store.state.floor.desks]
+        const desksBefore = [...store.state.selectedFloor.desks]
 
         this.command.canvasMousedown({
           e: this.createCanvasEvent('mousedown', {
@@ -151,7 +151,7 @@ describe('Create Desk canvas command', function () {
           e: this.createCanvasEvent('mouseup')
         })
 
-        const desks = store.state.floor.desks
+        const desks = store.state.selectedFloor.desks
         const newDesk = desks[desks.length - 1]
 
         expect(desks).to.have.lengthOf(desksBefore.length + 1)
@@ -162,13 +162,13 @@ describe('Create Desk canvas command', function () {
       })
 
       it('does not create a desk if not pressing the mouse down first', function () {
-        const desksBefore = store.state.floor.desks
+        const desksBefore = [...store.state.selectedFloor.desks]
 
         this.command.canvasMouseup({
           e: this.createCanvasEvent('mouseup')
         })
 
-        const desks = store.state.floor.desks
+        const desks = store.state.selectedFloor.desks
         expect(desks).to.have.lengthOf(desksBefore.length)
       })
     })

@@ -3,6 +3,8 @@
     <div class="container is-fluid">
       <h1 class="title">Info Area</h1>
       <h2 class="subtitle">for selected desk</h2>
+
+      <pre>{{JSON.stringify(desk, null, 2)}}</pre>
     </div>
   </div>
 </template>
@@ -23,9 +25,9 @@ export default {
       return !!this.desk
     },
 
-    ...mapState([
-      'desk'
-    ]),
+    ...mapState({
+      desk: 'selectedDesk'
+    }),
 
     style() {
       return {

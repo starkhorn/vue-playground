@@ -34,7 +34,7 @@ describe('Floor Plan Visualizer application', function () {
       store
     }).$mount()
 
-    app.$watch('$store.state.floor', (floor) => {
+    app.$watch('$store.state.selectedFloor', (floor) => {
       expect(floor).to.equal(expectedFloor)
 
       done()

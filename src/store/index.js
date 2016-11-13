@@ -11,8 +11,10 @@ export function createStore(options) {
 
     state: {
       plans: [],
-      floor: null,
-      desk: null
+
+      selectedPlan: null,
+      selectedFloor: null,
+      selectedDesk: null
     },
 
     mutations,

@@ -11,7 +11,7 @@
   </nav>
 
   <section>
-    <floor-editor :floor="selectedFloor"></floor-editor>
+    <floor-editor :floor="floor"></floor-editor>
   </section>
 </div>
 </template>
@@ -25,7 +25,7 @@ export default {
   name: 'app',
 
   computed: mapState({
-    selectedFloor: 'floor'
+    floor: 'selectedFloor'
   }),
 
   components: {

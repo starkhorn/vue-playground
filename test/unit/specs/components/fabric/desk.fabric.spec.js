@@ -94,18 +94,18 @@ describe('A fabric desk', function () {
       // thrown from this test to break Vue watcher loops
       new Promise((resolve) => {
         this.store.watch(
-          state => state.desk,
+          state => state.selectedDesk,
           value => resolve(value)
         )
       })
-      .then((value) => {
-        expect(value).to.have.property('id', 15)
+      .then((desk) => {
+        expect(desk).to.have.property('id', 9)
 
         done()
       })
 
       let desk = new DeskShape({
-        id: 15
+        id: 9
       })
 
       desk.trigger('selected')
@@ -115,7 +115,7 @@ describe('A fabric desk', function () {
   describe('when deselected', function () {
     beforeEach(function() {
       this.selectedDesk = new DeskShape({
-        id: 10
+        id: 5
       })
 
       this.selectedDesk.trigger('selected')
@@ -124,12 +124,12 @@ describe('A fabric desk', function () {
     it('sets the current desk to null', function (done) {
       new Promise((resolve) => {
         this.store.watch(
-          state => state.desk,
+          state => state.selectedDesk,
           value => resolve(value)
         )
       })
-      .then((value) => {
-        expect(value).to.equal(null)
+      .then((desk) => {
+        expect(desk).to.equal(null)
 
         done()
       })

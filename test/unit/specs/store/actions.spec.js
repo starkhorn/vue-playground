@@ -33,10 +33,7 @@ describe('A store', function () {
 
   describe('"CREATE_DESK" action', function () {
     it('adds a new desk to the floor', function (done) {
-      store.state.floor = {
-        desks: []
-      }
-
+      const desksBefore = [...store.state.selectedFloor.desks]
       const payload = {
         desk: {
           code: 'D0031'
@@ -45,10 +42,10 @@ describe('A store', function () {
 
       store.dispatch(types.CREATE_DESK, payload)
         .then(() => {
-          const desks = store.state.floor.desks
-          const newDesk = desks[0]
+          const desks = store.state.selectedFloor.desks
+          const newDesk = desks[desks.length - 1]
 
-          expect(desks).to.have.lengthOf(1)
+          expect(desks).to.have.lengthOf(desksBefore.length + 1)
           expect(newDesk).to.have.property('code', 'D0031')
           expect(newDesk).to.have.property('id')
           done()
@@ -81,13 +78,13 @@ describe('A store', function () {
         code: 'D0050'
       }]
 
-      store.state.floor = {
+      store.state.selectedFloor = {
         desks
       }
 
       store.dispatch(types.UPDATE_DESK, payload)
         .then(() => {
-          expect(store.state.floor.desks).to.deep.equal(expected)
+          expect(store.state.selectedFloor.desks).to.deep.equal(expected)
           done()
         })
     })
@@ -120,12 +117,13 @@ describe('A store', function () {
   describe('"SELECT_FLOOR" action', function () {
     it('sets the floor as the current floor', function (done) {
       const floor = {
+        id: 2,
         desks: []
       }
 
       store.dispatch(types.SELECT_FLOOR, { floor })
         .then(() => {
-          expect(store.state.floor).to.equal(floor)
+          expect(store.state.selectedFloor).to.have.property('id', 2)
           done()
         })
     })
@@ -139,7 +137,7 @@ describe('A store', function () {
 
       store.dispatch(types.SELECT_DESK, { desk })
         .then(() => {
-          expect(store.state.desk).to.equal(desk)
+          expect(store.state.selectedDesk).to.have.property('id', 4)
           done()
         })
     })
