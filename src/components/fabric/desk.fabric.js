@@ -1,6 +1,6 @@
 import fabric from 'fabric'
 import store from 'store'
-import { UPDATE_DESK, SELECT_DESK } from 'store/types'
+import { UPDATE_DESK, SELECT_DESK, DESELECT_DESK } from 'store/types'
 
 const defaultOptions = {
   fill: 'green',
@@ -17,6 +17,12 @@ export default fabric.util.createClass(fabric.Rect, {
 
     this.on('selected', () => {
       store.dispatch(SELECT_DESK, {
+        desk: this.toEntity()
+      })
+    })
+
+    this.on('deselected', () => {
+      store.dispatch(DESELECT_DESK, {
         desk: this.toEntity()
       })
     })

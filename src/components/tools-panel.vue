@@ -1,5 +1,5 @@
 <template lang="html">
-  <aside class="menu">
+  <aside class="menu sidebar" :style="style.sidebar">
     <p class="menu-label">Tools</p>
     <ul class="menu-list">
       <li v-for="menu in menus" @click.prevent="toggleMenu(menu.title)">
@@ -11,11 +11,28 @@
 
 <script>
 export default {
-  props: ['canvas', 'menus'],
+  props: {
+    canvas: Object,
+    menus: Array,
+    width: {
+      type: Number,
+      default: 180
+    }
+  },
 
   data() {
     return {
       selectedMenu: null
+    }
+  },
+
+  computed: {
+    style() {
+      return {
+        sidebar: {
+          width: `${this.width}px`
+        }
+      }
     }
   },
 
@@ -31,5 +48,24 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
+  .sidebar {
+    position: fixed;
+    top: 50px;
+    left: 0;
+    bottom: 0;
+    padding: 20px 0 50px;
+    min-width: 45px;
+    max-height: 100vh;
+    height: calc(100% - 50px);
+    background: #fff;
+    box-shadow: 0 2px 3px hsla(0,0%,7%,.1),0 0 0 1px hsla(0,0%,7%,.1);
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 1000;
+  }
+
+  .sidebar .menu-label {
+    padding-left: 5px;
+  }
 </style>

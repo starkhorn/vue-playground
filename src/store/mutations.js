@@ -31,5 +31,9 @@ export default {
 
   [types.SELECT_DESK](state, { desk }) {
     state.desk = desk
+  },
+
+  [types.DESELECT_DESK](state, { desk }) {
+    state.desk = null
   }
 }

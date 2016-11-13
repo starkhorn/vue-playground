@@ -39,6 +39,7 @@ export default {
   ...commitThrough([
     types.UPDATE_DESK,
     types.SELECT_FLOOR,
-    types.SELECT_DESK
+    types.SELECT_DESK,
+    types.DESELECT_DESK
   ])
 }

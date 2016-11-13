@@ -10,11 +10,9 @@
     </div>
   </nav>
 
-  <div class="section">
-    <div class="container is-fluid">
-      <floor-editor :floor="selectedFloor"></floor-editor>
-    </div>
-  </div>
+  <section>
+    <floor-editor :floor="selectedFloor"></floor-editor>
+  </section>
 </div>
 </template>
 
@@ -52,3 +50,11 @@ export default {
 </script>
 
 <style lang="scss">@import '~bulma/bulma';</style>
+
+<style scoped>
+.nav {
+  z-index: 1100;
+  position: fixed;
+  min-width: 100%;
+}
+</style>

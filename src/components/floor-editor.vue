@@ -1,23 +1,17 @@
 <template>
 <div>
-  <div class="columns">
-    <!-- Tools -->
-    <div class="column is-1">
-      <tools-panel :menus="menus" :canvas="activeCanvas" ref="tools"/>
-    </div>
+  <tools-panel :menus="tools.menus" :canvas="canvas.instance" ref="tools"/>
 
-    <!-- Canvas -->
-    <div class="column">
-      <floor-canvas :width="canvasDimensions.width" :height="canvasDimensions.height" :image="image" @ready="activeCanvas=$event.canvas">
+  <div :style="style.canvasContainer">
+    <div class="container is-fluid is-marginless">
+      <floor-canvas :width="canvas.width" :height="canvas.height" :image="image" @ready="canvas.instance=$event.canvas">
         <desk v-for="desk in desks" ref="desks" :desk="desk" />
       </floor-canvas>
     </div>
-
-    <!-- Info -->
-    <div class="column" v-show="infoPanel.show">
-      <info-panel @toggled="infoPanel.show = $event.show" />
-    </div>
   </div>
+
+  <info-panel @toggled="info.show = $event.show" v-show="info.show" ref="info" />
+
 </div>
 </template>
 
@@ -39,15 +33,23 @@ export default {
   props: ['floor'],
 
   data: () => ({
-    activeCanvas: null,
+    canvas: {
+      instance: null,
+      width: 0,
+      height: window.innerHeight
+    },
 
-    menus: [{
-      title: 'New Desk',
-      command: CreateDeskCommand
-    }],
+    tools: {
+      menus: [{
+        title: 'New Desk',
+        command: CreateDeskCommand
+      }],
+      width: 0
+    },
 
-    infoPanel: {
-      show: false
+    info: {
+      show: false,
+      width: 0
     }
   }),
 
@@ -60,22 +62,39 @@ export default {
       return this.floor && this.floor.desks
     },
 
-    canvasDimensions() {
-      const maxWidth = 1600
-      const height = 768
+    availableWidth() {
+      return window.innerWidth - this.tools.width
+    },
 
+    style() {
       return {
-        width: maxWidth - (this.infoPanel.show ? 200 : 0),
-        height
+        canvasContainer: {
+          'margin-left': `${this.tools.width}px`,
+          'margin-right': `${this.availableWidth - this.canvas.width}px`
+        }
       }
     }
+  },
+
+  watch: {
+    'info.show': {
+      immediate: true,
+      handler: function(show) {
+        if (show) {
+          this.canvas.width = this.availableWidth - this.info.width
+        } else {
+          this.canvas.width = this.availableWidth
+        }
+      }
+    }
+  },
+
+  mounted() {
+    this.info.width = this.$refs.info.width
+    this.tools.width = this.$refs.tools.width
   }
 }
 </script>
 
-<style lang="css">
-  .info-panel {
-    background-color: lightblue;
-    width: 200px;
-  }
+<style lang="css" scoped>
 </style>

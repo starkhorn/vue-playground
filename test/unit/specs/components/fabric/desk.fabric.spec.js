@@ -111,4 +111,30 @@ describe('A fabric desk', function () {
       desk.trigger('selected')
     })
   })
+
+  describe('when deselected', function () {
+    beforeEach(function() {
+      this.selectedDesk = new DeskShape({
+        id: 10
+      })
+
+      this.selectedDesk.trigger('selected')
+    })
+
+    it('sets the current desk to null', function (done) {
+      new Promise((resolve) => {
+        this.store.watch(
+          state => state.desk,
+          value => resolve(value)
+        )
+      })
+      .then((value) => {
+        expect(value).to.equal(null)
+
+        done()
+      })
+
+      this.selectedDesk.trigger('deselected')
+    })
+  })
 })

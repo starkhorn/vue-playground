@@ -2,6 +2,7 @@ import Vue from 'vue'
 import _ from 'lodash'
 import FloorEditor from 'components/floor-editor'
 import simulateEvent from 'simulateEvent'
+import { createStore } from 'test/unit/helpers/mock-store'
 
 describe('A floor editor', function () {
   beforeEach(function(done) {
@@ -12,7 +13,8 @@ describe('A floor editor', function () {
       },
       components: {
         FloorEditor
-      }
+      },
+      store: createStore()
     }).$mount()
 
     this.app.$nextTick(() => {
