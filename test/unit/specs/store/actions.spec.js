@@ -33,7 +33,7 @@ describe('A store', function () {
 
   describe('"CREATE_DESK" action', function () {
     it('adds a new desk to the floor', function (done) {
-      const desksBefore = [...store.state.selectedFloor.desks]
+      const desksBefore = [...store.getters.selectedFloor.desks]
       const payload = {
         desk: {
           code: 'D0031'
@@ -42,7 +42,7 @@ describe('A store', function () {
 
       store.dispatch(types.CREATE_DESK, payload)
         .then(() => {
-          const desks = store.state.selectedFloor.desks
+          const desks = store.getters.selectedFloor.desks
           const newDesk = desks[desks.length - 1]
 
           expect(desks).to.have.lengthOf(desksBefore.length + 1)
@@ -78,13 +78,11 @@ describe('A store', function () {
         code: 'D0050'
       }]
 
-      store.state.selectedFloor = {
-        desks
-      }
+      store.getters.selectedFloor.desks = desks
 
       store.dispatch(types.UPDATE_DESK, payload)
         .then(() => {
-          expect(store.state.selectedFloor.desks).to.deep.equal(expected)
+          expect(store.getters.selectedFloor.desks).to.deep.equal(expected)
           done()
         })
     })
@@ -123,7 +121,7 @@ describe('A store', function () {
 
       store.dispatch(types.SELECT_FLOOR, { floor })
         .then(() => {
-          expect(store.state.selectedFloor).to.have.property('id', 2)
+          expect(store.state.floorId).to.equal(2)
           done()
         })
     })
@@ -137,7 +135,7 @@ describe('A store', function () {
 
       store.dispatch(types.SELECT_DESK, { desk })
         .then(() => {
-          expect(store.state.selectedDesk).to.have.property('id', 4)
+          expect(store.getters.selectedDesk).to.have.property('id', 4)
           done()
         })
     })

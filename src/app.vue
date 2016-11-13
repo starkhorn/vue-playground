@@ -17,14 +17,14 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 import FloorEditor from './components/floor-editor'
 import { FETCH_PLANS, SELECT_FLOOR } from './store/types'
 
 export default {
   name: 'app',
 
-  computed: mapState({
+  computed: mapGetters({
     floor: 'selectedFloor'
   }),
 

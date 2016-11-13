@@ -131,7 +131,7 @@ describe('Create Desk command', function () {
 
     describe('when releasing a mouse on the canvas', function () {
       it('creates a desk', function () {
-        const desksBefore = [...store.state.selectedFloor.desks]
+        const desksBefore = [...store.getters.selectedFloor.desks]
 
         this.command.canvasMousedown({
           e: this.createCanvasEvent('mousedown', {
@@ -151,7 +151,7 @@ describe('Create Desk command', function () {
           e: this.createCanvasEvent('mouseup')
         })
 
-        const desks = store.state.selectedFloor.desks
+        const desks = store.getters.selectedFloor.desks
         const newDesk = desks[desks.length - 1]
 
         expect(desks).to.have.lengthOf(desksBefore.length + 1)
@@ -162,13 +162,13 @@ describe('Create Desk command', function () {
       })
 
       it('does not create a desk if not pressing the mouse down first', function () {
-        const desksBefore = [...store.state.selectedFloor.desks]
+        const desksBefore = [...store.getters.selectedFloor.desks]
 
         this.command.canvasMouseup({
           e: this.createCanvasEvent('mouseup')
         })
 
-        const desks = store.state.selectedFloor.desks
+        const desks = store.getters.selectedFloor.desks
         expect(desks).to.have.lengthOf(desksBefore.length)
       })
     })

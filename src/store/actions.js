@@ -22,7 +22,7 @@ export default {
       })
   },
 
-  [types.CREATE_DESK]({ commit }, { desk }) {
+  [types.CREATE_DESK]({ commit, getters }, { desk }) {
     const newDesk = {
       ...desk,
 
@@ -30,14 +30,20 @@ export default {
     }
 
     commit(types.CREATE_DESK, {
+      floor: getters.selectedFloor,
       desk: newDesk
     })
 
     return newDesk
   },
 
+  [types.UPDATE_DESK]({ commit, getters }, { desk }) {
+    const floor = getters.selectedFloor
+
+    commit(types.UPDATE_DESK, { floor, desk })
+  },
+
   ...commitThrough([
-    types.UPDATE_DESK,
     types.SELECT_FLOOR,
     types.SELECT_DESK,
     types.DESELECT_DESK

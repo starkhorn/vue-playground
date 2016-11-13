@@ -94,12 +94,12 @@ describe('A fabric desk', function () {
       // thrown from this test to break Vue watcher loops
       new Promise((resolve) => {
         this.store.watch(
-          state => state.selectedDesk,
+          state => state.deskId,
           value => resolve(value)
         )
       })
-      .then((desk) => {
-        expect(desk).to.have.property('id', 9)
+      .then((deskId) => {
+        expect(deskId).to.equal(9)
 
         done()
       })
@@ -124,12 +124,12 @@ describe('A fabric desk', function () {
     it('sets the current desk to null', function (done) {
       new Promise((resolve) => {
         this.store.watch(
-          state => state.selectedDesk,
+          state => state.deskId,
           value => resolve(value)
         )
       })
-      .then((desk) => {
-        expect(desk).to.equal(null)
+      .then((deskId) => {
+        expect(deskId).to.equal(null)
 
         done()
       })

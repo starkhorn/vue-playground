@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   props: {
@@ -25,7 +25,7 @@ export default {
       return !!this.desk
     },
 
-    ...mapState({
+    ...mapGetters({
       desk: 'selectedDesk'
     }),
 
