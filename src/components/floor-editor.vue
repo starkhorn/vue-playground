@@ -40,12 +40,12 @@ export default {
         title: 'New Desk',
         command: CreateDeskCommand
       }],
-      width: 0
+      width: 180
     },
 
     info: {
       show: false,
-      width: 0
+      width: 250
     }
   }),
 
