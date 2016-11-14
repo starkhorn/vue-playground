@@ -28,10 +28,6 @@ export default {
         left: this.desk.x,
         top: this.desk.y
       }
-    },
-
-    canvas() {
-      return this.$parent.canvas
     }
   },
 
@@ -41,13 +37,13 @@ export default {
         ...dimensions
       })
 
-      this.canvas.renderAll()
+      this.$emit('invalidated')
     },
 
     position(position) {
       this.deskShape.setAbsolutePosition(position)
 
-      this.canvas.renderAll()
+      this.$emit('invalidated')
     }
   },
 
@@ -59,11 +55,7 @@ export default {
       ...this.position
     })
 
-    this.$watch('canvas', (canvas) => {
-      if (canvas) {
-        canvas.add(this.deskShape)
-      }
-    }, { immediate: true })
+    this.$emit('created', { shape: this.deskShape })
   },
 
   destroyed() {

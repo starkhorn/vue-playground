@@ -4,9 +4,7 @@
 
   <div :style="style.canvasContainer">
     <div class="container is-fluid is-marginless">
-      <floor-canvas :width="canvas.width" :height="canvas.height" :image="image" @ready="canvas.instance=$event.canvas">
-        <desk v-for="desk in desks" ref="desks" :desk="desk" />
-      </floor-canvas>
+      <floor-canvas :width="canvas.width" :height="canvas.height" :floor="floor" @ready="canvas.instance=$event.canvas" ref="floorCanvas" />
     </div>
   </div>
 
@@ -16,16 +14,14 @@
 </template>
 
 <script>
-import FloorCanvas from './floor-canvas'
-import Desk from './desk'
-import CreateDeskCommand from './canvas-commands/create-desk'
+import FloorCanvas from 'components/floor-canvas'
 import ToolsPanel from 'components/tools-panel'
 import InfoPanel from 'components/info-panel'
+import CreateDeskCommand from 'components/canvas-commands/create-desk'
 
 export default {
   components: {
     FloorCanvas,
-    Desk,
     ToolsPanel,
     InfoPanel
   },
@@ -54,14 +50,6 @@ export default {
   }),
 
   computed: {
-    image() {
-      return this.floor && this.floor.image
-    },
-
-    desks() {
-      return this.floor && this.floor.desks
-    },
-
     availableWidth() {
       return window.innerWidth - this.tools.width
     },

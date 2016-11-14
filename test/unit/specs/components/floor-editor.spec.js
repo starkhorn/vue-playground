@@ -34,7 +34,8 @@ describe('A floor editor', function () {
 
     this.app.$nextTick(() => {
       const editor = this.editor
-      const desks = editor.$refs.desks
+      const canvas = editor.$refs.floorCanvas
+      const desks = canvas.$refs.desks
 
       expect(desks).to.have.lengthOf(2)
       expect(desks[0].desk).to.equal(floor.desks[0])
