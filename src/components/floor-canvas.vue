@@ -1,5 +1,5 @@
 <template lang="html">
-  <div>
+  <div class="canvas-wrapper">
     <canvas ref="canvas">
     </canvas>
 
@@ -19,13 +19,9 @@ export default {
     Desk
   },
 
-  props: ['floor', 'width', 'height'],
+  props: ['floor'],
 
   computed: {
-    dimensions() {
-      return _.pick(this, 'width', 'height')
-    },
-
     image() {
       return _.get(this, 'floor.image')
     },
@@ -44,10 +40,6 @@ export default {
       immediate: true
     })
 
-    this.$watch('dimensions', this.updateDimensions, {
-      immediate: true
-    })
-
     this.$emit('ready', {
       canvas: this.canvas
     })
@@ -55,12 +47,16 @@ export default {
 
   methods: {
     updateImage(image) {
-      // TODO: implement panning
-      this.canvas.setBackgroundImage(image, () => this.invalidate())
-    },
+      this.canvas.setBackgroundImage(image, (img) => {
+        if (img) {
+          this.canvas.setDimensions({
+            width: img.width,
+            height: img.height
+          })
+        }
 
-    updateDimensions(dimensions) {
-      this.canvas.setDimensions(dimensions)
+        this.invalidate()
+      })
     },
 
     invalidate() {
@@ -77,5 +73,10 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="scss" scoped>
+  .canvas-wrapper {
+    max-height: 100vh;
+    height: calc(100% - 50px);
+    overflow: auto;
+  }
 </style>

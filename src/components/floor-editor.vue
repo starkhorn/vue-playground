@@ -4,7 +4,7 @@
 
   <div :style="style.canvasContainer">
     <div class="container is-fluid is-marginless">
-      <floor-canvas :width="canvas.width" :height="canvas.height" :floor="floor" @ready="canvas.instance=$event.canvas" ref="floorCanvas" />
+      <floor-canvas :floor="floor" @ready="canvas.instance=$event.canvas" ref="floorCanvas" />
     </div>
   </div>
 
@@ -50,36 +50,14 @@ export default {
   }),
 
   computed: {
-    availableWidth() {
-      return window.innerWidth - this.tools.width
-    },
-
     style() {
       return {
         canvasContainer: {
           'margin-left': `${this.tools.width}px`,
-          'margin-right': `${this.availableWidth - this.canvas.width}px`
+          'margin-right': `${this.info.show ? this.info.width : 0}px`
         }
       }
     }
-  },
-
-  watch: {
-    'info.show': {
-      immediate: true,
-      handler: function(show) {
-        if (show) {
-          this.canvas.width = this.availableWidth - this.info.width
-        } else {
-          this.canvas.width = this.availableWidth
-        }
-      }
-    }
-  },
-
-  mounted() {
-    this.info.width = this.$refs.info.width
-    this.tools.width = this.$refs.tools.width
   }
 }
 </script>
