@@ -1,6 +1,6 @@
 <template>
 <div>
-  <tools-panel :menus="tools.menus" :canvas="canvas.instance" ref="tools"/>
+  <tools-panel :menus="tools.menus" :canvas="canvas.instance" :width="tools.width" ref="tools"/>
 
   <div :style="style.canvasContainer">
     <div class="container is-fluid is-marginless">
@@ -8,7 +8,7 @@
     </div>
   </div>
 
-  <info-panel @toggled="info.show = $event.show" v-show="info.show" ref="info" />
+  <info-panel @toggled="info.show = $event.show" v-show="info.show" :width="info.width" ref="info" />
 
 </div>
 </template>

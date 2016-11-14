@@ -15,8 +15,7 @@ import { mapGetters } from 'vuex'
 export default {
   props: {
     width: {
-      type: Number,
-      default: 250
+      type: Number
     }
   },
 

@@ -15,8 +15,7 @@ export default {
     canvas: Object,
     menus: Array,
     width: {
-      type: Number,
-      default: 180
+      type: Number
     }
   },
 
