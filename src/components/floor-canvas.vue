@@ -76,7 +76,7 @@ export default {
 <style lang="scss" scoped>
   .canvas-wrapper {
     max-height: 100vh;
-    height: calc(100% - 50px);
+    height: calc(100vh - 50px);
     overflow: auto;
   }
 </style>

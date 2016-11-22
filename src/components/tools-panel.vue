@@ -56,7 +56,6 @@ export default {
     padding: 20px 0 50px;
     min-width: 45px;
     max-height: 100vh;
-    height: calc(100% - 50px);
     background: #fff;
     box-shadow: 0 2px 3px hsla(0,0%,7%,.1),0 0 0 1px hsla(0,0%,7%,.1);
     overflow-y: auto;

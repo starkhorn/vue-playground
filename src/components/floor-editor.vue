@@ -31,8 +31,7 @@ export default {
   data: () => ({
     canvas: {
       instance: null,
-      width: 0,
-      height: window.innerHeight
+      width: 0
     },
 
     tools: {

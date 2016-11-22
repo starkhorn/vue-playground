@@ -46,6 +46,7 @@ export default {
   ...commitThrough([
     types.SELECT_FLOOR,
     types.SELECT_DESK,
-    types.DESELECT_DESK
+    types.DESELECT_DESK,
+    types.AUTHENTICATE
   ])
 }

@@ -10,42 +10,15 @@
     </div>
   </nav>
 
-  <section>
-    <floor-editor :floor="floor"></floor-editor>
+  <section class="route-outlet">
+    <router-view></router-view>
   </section>
 </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import FloorEditor from './components/floor-editor'
-import { FETCH_PLANS, SELECT_FLOOR } from './store/types'
-
 export default {
-  name: 'app',
-
-  computed: mapGetters({
-    floor: 'selectedFloor'
-  }),
-
-  components: {
-    FloorEditor
-  },
-
-  created() {
-    this.fetchPlans()
-  },
-
-  methods: {
-    async fetchPlans() {
-      const { plans } = await this.$store.dispatch(FETCH_PLANS)
-      const firstPlan = plans && plans[0]
-      const firstBuilding = firstPlan && firstPlan.buildings[0]
-      const firstFloor = firstBuilding && firstBuilding.floors[0]
-
-      this.$store.commit(SELECT_FLOOR, { floor: firstFloor })
-    }
-  }
+  name: 'app'
 }
 </script>
 
@@ -56,5 +29,9 @@ export default {
   z-index: 1100;
   position: fixed;
   min-width: 100%;
+}
+
+.route-outlet {
+  padding-top: 50px;
 }
 </style>

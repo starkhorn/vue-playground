@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
-import App from 'src/app'
+import Home from 'components/home'
 import { createStore } from 'test/unit/helpers/mock-store'
 
-describe('Floor Plan Visualizer application', function () {
+describe('Home component', function () {
   let store, server
 
   beforeEach(function () {
@@ -27,9 +27,9 @@ describe('Floor Plan Visualizer application', function () {
     server.onGet('/api/plans').reply(200, plans)
 
     const app = new Vue({
-      template: '<app />',
+      template: '<home />',
       components: {
-        App
+        Home
       },
       store
     }).$mount()

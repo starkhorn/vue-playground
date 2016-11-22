@@ -15,7 +15,11 @@ export function createStore(options) {
 
       planId: null,
       floorId: null,
-      deskId: null
+      deskId: null,
+
+      auth: {
+        authenticated: false
+      }
     },
 
     mutations,

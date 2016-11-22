@@ -31,5 +31,9 @@ export default {
 
   [types.DESELECT_DESK](state, { desk }) {
     state.deskId = null
+  },
+
+  [types.AUTHENTICATE](state) {
+    state.auth.authenticated = true
   }
 }
