@@ -1,23 +1,25 @@
 <template lang="html">
-  <div>
-    <h2 class="title is-2">Login Placeholder</h2>
-    <button class="button" @click="login">Login!</button>
+  <div class="container">
+    <div class="columns">
+      <div class="column is-half is-offset-one-quarter">
+        <login-form />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import store from 'store'
-import { AUTHENTICATE } from 'store/types'
+import LoginForm from './form'
 
 export default {
-  methods: {
-    login: function() {
-      store.dispatch(AUTHENTICATE).then(() => {
-        this.$router.push('home')
-      })
-    }
+  components: {
+    LoginForm
   }
 }
 </script>
 
-<style lang="css"></style>
+<style lang="scss" scoped>
+.container {
+    margin-top: 30px;
+}
+</style>
