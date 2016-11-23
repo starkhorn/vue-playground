@@ -14,9 +14,9 @@
 </template>
 
 <script>
-import FloorCanvas from 'components/floor-canvas'
-import ToolsPanel from 'components/tools-panel'
-import InfoPanel from 'components/info-panel'
+import FloorCanvas from 'components/home/floor-canvas'
+import ToolsPanel from 'components/home/tools-panel'
+import InfoPanel from 'components/home/info-panel'
 import CreateDeskCommand from 'components/canvas-commands/create-desk'
 
 export default {

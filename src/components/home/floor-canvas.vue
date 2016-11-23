@@ -12,7 +12,7 @@
 <script>
 import _ from 'lodash'
 import Canvas from 'components/fabric/canvas.fabric'
-import Desk from 'components/desk'
+import Desk from 'components/home/desk'
 
 export default {
   components: {

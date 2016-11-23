@@ -4,7 +4,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import FloorEditor from 'components/floor-editor'
+import FloorEditor from 'components/home/floor-editor'
 import { FETCH_PLANS, SELECT_FLOOR } from 'store/types'
 
 export default {

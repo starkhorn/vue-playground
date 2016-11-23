@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import _ from 'lodash'
-import FloorEditor from 'components/floor-editor'
+import FloorEditor from 'components/home/floor-editor'
 import simulateEvent from 'simulateEvent'
 import { createStore } from 'test/unit/helpers/mock-store'
 

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
-import Home from 'components/home'
+import Home from 'components/home/index'
 import { createStore } from 'test/unit/helpers/mock-store'
 
 describe('Home component', function () {
