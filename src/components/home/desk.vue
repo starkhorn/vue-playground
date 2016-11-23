@@ -15,11 +15,18 @@ export default {
 
   computed: {
     dimensions() {
+      // when shape is created, transform the shape by scaling it
+      // this is what Fabric.js expects when we resize a shape.
+      if (this.deskShape) {
+        return {
+          scaleX: this.desk.width / this.deskShape.width,
+          scaleY: this.desk.height / this.deskShape.height
+        }
+      }
+
       return {
         width: this.desk.width,
-        height: this.desk.height,
-        scaleX: 1.00,
-        scaleY: 1.00
+        height: this.desk.height
       }
     },
 
