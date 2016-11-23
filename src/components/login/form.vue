@@ -25,9 +25,7 @@ import { AUTHENTICATE } from 'store/types'
 export default {
   methods: {
     login: function() {
-      store.dispatch(AUTHENTICATE).then(() => {
-        this.$router.push('home')
-      })
+      store.dispatch(AUTHENTICATE)
     }
   }
 }
