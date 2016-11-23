@@ -6,6 +6,9 @@
 Vuex is a state management library for Vue, as our application might contain multiple Vue components, I believe this will be really useful.
 * [Vuex Official Guide](http://vuex.vuejs.org/en/intro.html)
 
+### Vue Router
+Vue Router is a routing management for Vue.
+
 ### Fabric.js
 Fabric.js is a HTML5 canvas library, I find it likely that our application will need it since we need to display and edit an image. There are also other alternatives but I find Fabric.js is the right tool for us as it provides object interactivity out of the box.
 * [Fabric.js Official Website](http://fabricjs.com/)
